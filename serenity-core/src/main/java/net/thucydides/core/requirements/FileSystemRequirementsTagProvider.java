@@ -48,7 +48,7 @@ public class FileSystemRequirementsTagProvider extends AbstractRequirementsTagPr
     public static final String FEATURE_EXTENSION = "feature";
 
     private final NarrativeReader narrativeReader;
-    private final int level;
+    protected final int level;
 
     private final RequirementsConfiguration requirementsConfiguration;
 
@@ -573,7 +573,7 @@ public class FileSystemRequirementsTagProvider extends AbstractRequirementsTagPr
                 .withChildren(children);
     }
 
-    private List<Requirement> readChildrenFrom(File requirementDirectory) {
+    protected List<Requirement> readChildrenFrom(File requirementDirectory) {
         String childDirectory = rootDirectory + "/" + requirementDirectory.getName();
         if (childrenExistFor(childDirectory)) {
             RequirementsTagProvider childReader = new FileSystemRequirementsTagProvider(childDirectory, level + 1, environmentVariables);
@@ -586,7 +586,7 @@ public class FileSystemRequirementsTagProvider extends AbstractRequirementsTagPr
         }
     }
 
-    private boolean childrenExistFor(String path) {
+    protected boolean childrenExistFor(String path) {
         if (hasSubdirectories(path)) {
             return true;
         } else if (hasFeatureOrStoryFiles(path)) {

@@ -957,7 +957,7 @@ public class TestOutcome {
         JSONConverter jsonConverter = Injectors.getInjector().getInstance(JSONConverter.class);
         try (ByteArrayOutputStream outputStream = new ByteArrayOutputStream()) {
             jsonConverter.toJson(this, outputStream);
-            return outputStream.toString(Charset.defaultCharset());
+            return outputStream.toString(Charset.defaultCharset().toString());
         } catch (IOException e) {
             LOGGER.error("serialization error for testOutcome with name \"" + this.getName() + "\"", e);
             return "";
@@ -2222,10 +2222,13 @@ public class TestOutcome {
         }
 
         StringBuilder sampleScenario = new StringBuilder();
+        int i =0;
         for (TestStep step : getStepChildren()) {
             sampleScenario.append(
                     withPlaceholderSubstitutes(step.getDescription()))
                     .append("\n");
+//            sampleScenario.append(CucumberScenarioOutlineStepDescriber.describeStep(i, this)).append("\n");
+            i ++;
         }
         return sampleScenario.length() > 1 ? sampleScenario.substring(0, sampleScenario.length() - 1) : "";
     }

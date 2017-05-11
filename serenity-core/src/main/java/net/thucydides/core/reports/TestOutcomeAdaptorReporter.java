@@ -5,6 +5,7 @@ import com.google.common.collect.Lists;
 import net.thucydides.core.guice.Injectors;
 import net.thucydides.core.model.TestOutcome;
 import net.thucydides.core.reports.adaptors.TestOutcomeAdaptor;
+import net.thucydides.core.reports.adaptors.ExtendedTestOutcomeAdaptor;
 import net.thucydides.core.reports.html.HtmlAcceptanceTestReporter;
 import net.thucydides.core.reports.json.JSONTestOutcomeReporter;
 import net.thucydides.core.reports.xml.XMLTestOutcomeReporter;
@@ -43,6 +44,9 @@ public class TestOutcomeAdaptorReporter extends ThucydidesReporter {
         setupOutputDirectoryIfRequired();
         for (TestOutcomeAdaptor adaptor : adaptors) {
             List<TestOutcome> outcomes = sourceDirectory.isPresent() ? adaptor.loadOutcomesFrom(sourceDirectory.get()) : adaptor.loadOutcomes();
+            if(adaptor instanceof ExtendedTestOutcomeAdaptor){
+                ((ExtendedTestOutcomeAdaptor)adaptor).copySupportingResourcesTo(outcomes,getOutputDirectory());
+            }
             generateReportsFor(outcomes);
         }
     }
