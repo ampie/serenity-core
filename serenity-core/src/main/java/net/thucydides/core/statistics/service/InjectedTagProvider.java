@@ -2,7 +2,6 @@ package net.thucydides.core.statistics.service;
 
 import com.google.common.base.Splitter;
 import net.thucydides.core.ThucydidesSystemProperty;
-import net.thucydides.core.guice.Injectors;
 import net.thucydides.core.model.TestOutcome;
 import net.thucydides.core.model.TestTag;
 import net.thucydides.core.requirements.CoreTagProvider;
@@ -12,8 +11,10 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import static ch.lambdaj.Lambda.convert;
 import static net.thucydides.core.tags.TagConverters.fromStringsToTestTags;
+
+import net.thucydides.core.guice.Injectors;
+import static ch.lambdaj.Lambda.convert;
 
 /**
  * Allows tags to be added via the injected.tag system property.
@@ -37,6 +38,6 @@ public class InjectedTagProvider implements TagProvider, CoreTagProvider {
         if (injectedTagValues.isEmpty()) { return new HashSet<>(); }
 
         List<String> tags = Splitter.on(",").trimResults().splitToList(injectedTagValues);
-        return new HashSet<>(convert(tags, fromStringsToTestTags()));
+        return new HashSet<TestTag>(convert(tags, fromStringsToTestTags()));
     }
 }

@@ -11,9 +11,9 @@ import java.lang.reflect.Method;
  *
  */
 public final class TestStatus {
-    
+
     private final Method method;
-    
+
     private TestStatus(final Method method) {
         super();
         this.method = method;

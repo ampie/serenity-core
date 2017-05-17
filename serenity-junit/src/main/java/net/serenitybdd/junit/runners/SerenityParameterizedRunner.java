@@ -9,7 +9,7 @@ import net.thucydides.core.reports.AcceptanceTestReporter;
 import net.thucydides.core.reports.ReportService;
 import net.thucydides.core.steps.StepEventBus;
 import net.thucydides.core.webdriver.Configuration;
-import net.thucydides.core.webdriver.WebDriverFactory;
+//LITE: import net.thucydides.core.webdriver.WebDriverFactory;
 import net.thucydides.junit.ThucydidesJUnitSystemProperties;
 import net.thucydides.junit.annotations.Concurrent;
 import org.apache.commons.lang3.StringUtils;
@@ -41,18 +41,15 @@ public class SerenityParameterizedRunner extends Suite {
      * Test runner used for testing purposes.
      *
      * @param klass            The test class to run
-     * @param configuration    current system configuration (usually mocked)
-     * @param webDriverFactory a webdriver factory (can be mocked)
-     * @param batchManager     a batch manager to process batched testing
      * @throws Throwable - cause anything can happen!
      */
-    public SerenityParameterizedRunner(final Class<?> klass,
+    public SerenityParameterizedRunner(final Class<?> klass/*LITE,
                                        Configuration configuration,
-                                       final WebDriverFactory webDriverFactory,
-                                       final BatchManager batchManager
+                                       /:final WebDriverFactory webDriverFactory,
+                                       final BatchManager batchManager*/
     ) throws Throwable {
         super(klass, Collections.<Runner>emptyList());
-        this.configuration = configuration;
+        this.configuration = Injectors.getInjector().getInstance(Configuration.class);
 
         if (runTestsInParallelFor(klass)) {
             scheduleParallelTestRunsFor(klass);
@@ -60,9 +57,9 @@ public class SerenityParameterizedRunner extends Suite {
 
         DataDrivenAnnotations testClassAnnotations = getTestAnnotations();
         if (testClassAnnotations.hasTestDataDefined()) {
-            buildTestRunnersForEachDataSetUsing(webDriverFactory, batchManager);
+            buildTestRunnersForEachDataSetUsing(/*LITE:webDriverFactory, batchManager*/);
         } else if (testClassAnnotations.hasTestDataSourceDefined()) {
-            buildTestRunnersFromADataSourceUsing(webDriverFactory, batchManager);
+            buildTestRunnersFromADataSourceUsing(/*LITE:webDriverFactory, batchManager*/);
         }
     }
 
@@ -106,15 +103,15 @@ public class SerenityParameterizedRunner extends Suite {
         }
     }
 
-    private void buildTestRunnersForEachDataSetUsing(final WebDriverFactory webDriverFactory,
-                                                     final BatchManager batchManager) throws Throwable {
+    private void buildTestRunnersForEachDataSetUsing(/*LITE:final WebDriverFactory webDriverFactory,
+                                                     final BatchManager batchManager*/) throws Throwable {
         DataTable parametersTable = getTestAnnotations().getParametersTableFromTestDataAnnotation();
         for (int i = 0; i < parametersTable.getRows().size(); i++) {
             Class<?> testClass = getTestClass().getJavaClass();
             SerenityRunner runner = new TestClassRunnerForParameters(testClass,
-                    configuration,
-                    webDriverFactory,
-                    batchManager,
+//LITE:                    configuration,
+//                    webDriverFactory,
+//                    batchManager,
                     parametersTable,
                     i);
             runner.useQualifier(from(parametersTable.getRows().get(i).getValues()));
@@ -122,17 +119,17 @@ public class SerenityParameterizedRunner extends Suite {
         }
     }
 
-    private void buildTestRunnersFromADataSourceUsing(final WebDriverFactory webDriverFactory,
-                                                      final BatchManager batchManager) throws Throwable {
+    private void buildTestRunnersFromADataSourceUsing(/*LITE:final WebDriverFactory webDriverFactory,
+                                                     final BatchManager batchManager*/) throws Throwable {
 
         List<?> testCases = getTestAnnotations().getDataAsInstancesOf(getTestClass().getJavaClass());
         DataTable parametersTable = getTestAnnotations().getParametersTableFromTestDataSource();
         for (int i = 0; i < testCases.size(); i++) {
             Object testCase = testCases.get(i);
             SerenityRunner runner = new TestClassRunnerForInstanciatedTestCase(testCase,
-                    configuration,
-                    webDriverFactory,
-                    batchManager,
+//                    configuration,
+//                    webDriverFactory,
+//                    batchManager,
                     parametersTable,
                     i);
             runner.useQualifier(getQualifierFor(testCase));
@@ -161,17 +158,17 @@ public class SerenityParameterizedRunner extends Suite {
         return testDataQualifier.toString();
     }
 
-
-    /**
-     * Only called reflectively. Do not use programmatically.
-     *
-     * @param klass The test class to run
-     * @throws Throwable Cause shit happens
-     */
-    public SerenityParameterizedRunner(final Class<?> klass) throws Throwable {
-        this(klass, ConfiguredEnvironment.getConfiguration(), new WebDriverFactory(),
-                Injectors.getInjector().getInstance(BatchManager.class));
-    }
+//LITE:
+//    /**
+//     * Only called reflectively. Do not use programmatically.
+//     *
+//     * @param klass The test class to run
+//     * @throws Throwable Cause shit happens
+//     */
+//    public SerenityParameterizedRunner(final Class<?> klass) throws Throwable {
+//        this(klass, ConfiguredEnvironment.getConfiguration(), new WebDriverFactory(),
+//                Injectors.getInjector().getInstance(BatchManager.class));
+//    }
 
     @Override
     protected List<Runner> getChildren() {

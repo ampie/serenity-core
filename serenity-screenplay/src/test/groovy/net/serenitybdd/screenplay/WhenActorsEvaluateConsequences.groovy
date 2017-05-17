@@ -1,6 +1,6 @@
 package net.serenitybdd.screenplay
 
-import net.serenitybdd.junit.runners.SerenityRunner
+//LITE: import net.serenitybdd.junit.runners.SerenityRunner
 import net.serenitybdd.screenplay.shopping.DanaGoesShoppingSample
 import org.junit.runner.notification.RunNotifier
 import spock.lang.Specification

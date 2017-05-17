@@ -1,6 +1,6 @@
 package net.thucydides.core.statistics;
 
-import com.google.inject.BindingAnnotation;
+//LITE:import com.google.inject.BindingAnnotation;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
@@ -9,5 +9,5 @@ import java.lang.annotation.Target;
 
 @Retention(RetentionPolicy.RUNTIME)
 @Target({ElementType.FIELD, ElementType.PARAMETER})
-@BindingAnnotation
+//LITE:@BindingAnnotation
 public @interface Statistics {}

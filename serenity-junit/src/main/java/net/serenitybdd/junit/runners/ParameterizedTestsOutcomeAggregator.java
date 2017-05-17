@@ -1,12 +1,16 @@
 package net.serenitybdd.junit.runners;
 
+import ch.lambdaj.function.convert.Converter;
+import com.google.common.base.Optional;
 import com.google.common.collect.Lists;
 import net.thucydides.core.model.*;
 import org.apache.commons.lang3.StringUtils;
 import org.junit.runner.Runner;
-import com.google.common.base.Optional;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import static ch.lambdaj.Lambda.extract;
 import static ch.lambdaj.Lambda.on;
@@ -106,7 +110,17 @@ public class ParameterizedTestsOutcomeAggregator {
     }
 
     private TestResult overallResultFrom(List<DataTableRow> rows) {
-        return TestResultList.overallResultFrom(extract(rows, on(DataTableRow.class).getResult()));
+//   LITE:     return TestResultList.overallResultFrom(extract(rows, on(DataTableRow.class).getResult()));
+        return TestResultList.overallResultFrom(extract(rows, onResults()));
+    }
+
+    private Converter<DataTableRow,TestResult> onResults() {
+        return new Converter<DataTableRow, TestResult>() {
+            @Override
+            public TestResult convert(DataTableRow from) {
+                return from.getResult();
+            }
+        };
     }
 
     private String normalizeTestStepDescription(String description, int index) {

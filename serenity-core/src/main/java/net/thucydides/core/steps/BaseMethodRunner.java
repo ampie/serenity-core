@@ -1,6 +1,6 @@
 package net.thucydides.core.steps;
 
-import net.sf.cglib.proxy.MethodProxy;
+import net.serenitybdd.instrumentation.MethodProxy;
 
 /**
  * Created by john on 9/08/2015.

@@ -1,14 +1,15 @@
 package net.thucydides.core.steps.stepdata;
 
 import au.com.bytecode.opencsv.CSVReader;
-import ch.lambdaj.function.convert.Converter;
-import com.beust.jcommander.internal.Lists;
+//LITE:import ch.lambdaj.function.convert.Converter;
+//LITE:import com.beust.jcommander.internal.Lists;
 import com.google.common.base.Preconditions;
 import com.google.common.collect.ImmutableList;
 import net.thucydides.core.csv.FailedToInitializeTestData;
 import net.thucydides.core.csv.FieldName;
 import net.thucydides.core.csv.InstanceBuilder;
 import net.thucydides.core.guice.Injectors;
+import ch.lambdaj.function.convert.Converter;
 import net.thucydides.core.steps.FilePathParser;
 import net.thucydides.core.steps.StepFactory;
 import net.thucydides.core.util.EnvironmentVariables;
@@ -20,6 +21,7 @@ import java.io.*;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.util.*;
+
 
 import static ch.lambdaj.Lambda.convert;
 
@@ -58,7 +60,7 @@ public class CSVTestDataSource implements TestDataSource {
     }
 
     private List<String> instantiated(List<String> paths) {
-        List<String> instantiated = Lists.newArrayList();
+        List<String> instantiated = new ArrayList<>();
         for(String path : paths) {
             instantiated.add(testDataSourcePath.getInstanciatedPath(path));
         }
@@ -67,7 +69,7 @@ public class CSVTestDataSource implements TestDataSource {
 
     List<String[]> getDataRows() {
         if (csvDataRows == null) {
-            csvDataRows = Lists.newArrayList();
+            csvDataRows = new ArrayList<>();
             for(String instantiatedPath : instantiatedPaths) {
                 try (Reader reader = getDataFileFor(instantiatedPath)) {
                     csvDataRows.addAll(getCSVDataFrom(reader));

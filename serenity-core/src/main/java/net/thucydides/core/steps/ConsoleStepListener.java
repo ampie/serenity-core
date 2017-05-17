@@ -1,8 +1,9 @@
 package net.thucydides.core.steps;
 
 
+import net.thucydides.core.guice.Injectors;
 import net.thucydides.core.model.TestOutcome;
-import org.openqa.selenium.firefox.FirefoxDriver;
+//LITE:import org.openqa.selenium.firefox.FirefoxDriver;
 
 public class ConsoleStepListener extends BaseStepListener {
 
@@ -11,7 +12,7 @@ public class ConsoleStepListener extends BaseStepListener {
     int currentIndent = 0;
 
     public ConsoleStepListener() {
-        super(FirefoxDriver.class, null);
+        super(null, Injectors.getInjector());
     }
 
     @Override

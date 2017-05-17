@@ -10,15 +10,17 @@ import net.thucydides.core.model.stacktrace.FailureCause;
 import net.thucydides.core.model.stacktrace.RootCauseAnalyzer;
 import net.thucydides.core.screenshots.ScreenshotAndHtmlSource;
 import org.joda.time.DateTime;
-import org.jsoup.Jsoup;
 
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-import static ch.lambdaj.Lambda.*;
 import static net.thucydides.core.model.TestResult.*;
 import static org.apache.commons.lang3.StringUtils.isEmpty;
+
+//LITE:import net.thucydides.core.guice.Injectors;
+//LITE: import org.jsoup.Jsoup;
+//LITE:import static ch.lambdaj.Lambda.*;
 
 /**
  * An acceptance test run is made up of test steps.
@@ -122,8 +124,9 @@ public class TestStep implements Cloneable {
         if (!hasChildren()) {
             return description;
         } else {
-            String childDescriptions = join(extract(children, on(TestStep.class).toString()));
-            return description + " [" + childDescriptions + "]";
+            //LITE:String childDescriptions = join(extract(children, on(TestStep.class).toString()));
+            //LITE:return description + " [" + childDescriptions + "]";
+            return description + children.toString();
         }
     }
 
@@ -188,7 +191,7 @@ public class TestStep implements Cloneable {
     }
 
     private String stripMarkupFrom(String description) {
-        return Jsoup.parse(description).text();
+        return description; //LITE:         return Jsoup.parse(description).text();
     }
 
     public List<TestStep> getChildren() {

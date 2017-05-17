@@ -1,10 +1,9 @@
 package net.thucydides.core.steps;
 
-import com.google.common.base.Optional;
-import net.serenitybdd.core.pages.PagesAnnotatedField;
-import net.thucydides.core.pages.Pages;
-
 import java.util.List;
+
+//LITE:import net.serenitybdd.core.pages.PagesAnnotatedField;
+//LITE:import net.thucydides.core.pages.Pages;
 
 /**
  * Utility class used to inject fields into a test case.
@@ -58,27 +57,27 @@ public final class StepAnnotations {
     private static boolean useUniqueInstanceFor(StepsAnnotatedField stepsField) {
         return stepsField.isUniqueInstance();
     }
-
-    /**
-     * Instantiates the @ManagedPages-annotated Pages instance using current WebDriver.
-     */
-    public static void injectAnnotatedPagesObjectInto(final Object testCase, final Pages pages) {
-       Optional<PagesAnnotatedField> pagesField = PagesAnnotatedField.findFirstAnnotatedField(testCase.getClass());
-       if (pagesField.isPresent()) {
-           pages.setDefaultBaseUrl(pagesField.get().getDefaultBaseUrl());
-           pagesField.get().setValue(testCase, pages);
-       }
-    }
-
-    /**
-     * Instantiates the @ManagedPages-annotated Pages instance using current WebDriver, if the field is present.
-     */
-    public static void injectOptionalAnnotatedPagesObjectInto(final Object testCase, final Pages pages) {
-        Optional<PagesAnnotatedField> pagesField = PagesAnnotatedField.findOptionalAnnotatedField(testCase.getClass());
-        if (pagesField.isPresent()) {
-            pages.setDefaultBaseUrl(pagesField.get().getDefaultBaseUrl());
-            pagesField.get().setValue(testCase, pages);
-        }
-    }
+//LITE:
+//    /**
+//     * Instantiates the @ManagedPages-annotated Pages instance using current WebDriver.
+//     */
+//    public static void injectAnnotatedPagesObjectInto(final Object testCase, final Pages pages) {
+//       Optional<PagesAnnotatedField> pagesField = PagesAnnotatedField.findFirstAnnotatedField(testCase.getClass());
+//       if (pagesField.isPresent()) {
+//           pages.setDefaultBaseUrl(pagesField.get().getDefaultBaseUrl());
+//           pagesField.get().setValue(testCase, pages);
+//       }
+//    }
+//
+//    /**
+//     * Instantiates the @ManagedPages-annotated Pages instance using current WebDriver, if the field is present.
+//     */
+//    public static void injectOptionalAnnotatedPagesObjectInto(final Object testCase, final Pages pages) {
+//        Optional<PagesAnnotatedField> pagesField = PagesAnnotatedField.findOptionalAnnotatedField(testCase.getClass());
+//        if (pagesField.isPresent()) {
+//            pages.setDefaultBaseUrl(pagesField.get().getDefaultBaseUrl());
+//            pagesField.get().setValue(testCase, pages);
+//        }
+//    }
 
 }

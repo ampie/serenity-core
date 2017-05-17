@@ -1,6 +1,6 @@
 package net.thucydides.core.steps;
 
-import net.sf.cglib.proxy.MethodProxy;
+import net.serenitybdd.instrumentation.MethodProxy;
 
 import java.lang.reflect.Method;
 

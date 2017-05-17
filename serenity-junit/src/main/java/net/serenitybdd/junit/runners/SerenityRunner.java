@@ -2,27 +2,27 @@ package net.serenitybdd.junit.runners;
 
 import com.google.common.base.Optional;
 import com.google.inject.Injector;
-import com.google.inject.Module;
+//LITE:import com.google.inject.Module;
 import net.serenitybdd.core.Serenity;
 import net.serenitybdd.core.environment.ConfiguredEnvironment;
 import net.serenitybdd.core.injectors.EnvironmentDependencyInjector;
-import net.thucydides.core.annotations.ManagedWebDriverAnnotatedField;
-import net.thucydides.core.annotations.TestCaseAnnotations;
+//LITE:import net.thucydides.core.annotations.ManagedWebDriverAnnotatedField;
+//LITE:import net.thucydides.core.annotations.TestCaseAnnotations;
 import net.thucydides.core.batches.BatchManager;
 import net.thucydides.core.batches.BatchManagerProvider;
 import net.thucydides.core.guice.Injectors;
 import net.thucydides.core.model.TestOutcome;
-import net.thucydides.core.pages.Pages;
+//LITE:import net.thucydides.core.pages.Pages;
 import net.thucydides.core.reports.AcceptanceTestReporter;
 import net.thucydides.core.reports.ReportService;
-import net.thucydides.core.steps.PageObjectDependencyInjector;
+//LITE:import net.thucydides.core.steps.PageObjectDependencyInjector;
 import net.thucydides.core.steps.StepAnnotations;
 import net.thucydides.core.steps.StepEventBus;
 import net.thucydides.core.steps.StepFactory;
 import net.thucydides.core.steps.stepdata.StepData;
 import net.thucydides.core.tags.TagScanner;
 import net.thucydides.core.tags.Taggable;
-import net.thucydides.core.webdriver.*;
+import net.thucydides.core.webdriver.Configuration;
 import net.thucydides.junit.listeners.JUnitStepListener;
 import org.junit.runner.Description;
 import org.junit.runner.notification.RunNotifier;
@@ -30,7 +30,7 @@ import org.junit.runners.BlockJUnit4ClassRunner;
 import org.junit.runners.model.FrameworkMethod;
 import org.junit.runners.model.InitializationError;
 import org.junit.runners.model.Statement;
-import org.openqa.selenium.WebDriver;
+//LITE:import org.openqa.selenium.WebDriver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -59,9 +59,9 @@ public class SerenityRunner extends BlockJUnit4ClassRunner implements Taggable {
      * This proxy notifies the test runner about individual step outcomes.
      */
     private StepFactory stepFactory;
-    private Pages pages;
-    private final WebdriverManager webdriverManager;
-    private String requestedDriver;
+    //LITE:private Pages pages;
+    //LITE:private final WebdriverManager webdriverManager;
+    //LITE:private String requestedDriver;
     private ReportService reportService;
     private final TestConfiguration theTest;
     private FailureRerunner failureRerunner;
@@ -70,7 +70,7 @@ public class SerenityRunner extends BlockJUnit4ClassRunner implements Taggable {
      */
     private JUnitStepListener stepListener;
 
-    private PageObjectDependencyInjector dependencyInjector;
+    //LITE:private PageObjectDependencyInjector dependencyInjector;
 
     private FailureDetectingStepListener failureDetectingStepListener;
 
@@ -86,9 +86,9 @@ public class SerenityRunner extends BlockJUnit4ClassRunner implements Taggable {
 
     private final Logger logger = LoggerFactory.getLogger(SerenityRunner.class);
 
-    public Pages getPages() {
-        return pages;
-    }
+//LITE:    public Pages getPages() {
+//        return pages;
+//    }
 
     /**
      * Creates a new test runner for WebDriver web tests.
@@ -97,79 +97,79 @@ public class SerenityRunner extends BlockJUnit4ClassRunner implements Taggable {
      * @throws InitializationError if some JUnit-related initialization problem occurred
      */
     public SerenityRunner(final Class<?> klass) throws InitializationError {
-        this(klass, Injectors.getInjector());
+        this(klass, Injectors.getInjector().getInstance(Configuration.class),Injectors.getInjector().getInstance(BatchManager.class));//LITE
     }
-
-    /**
-     * Creates a new test runner for WebDriver web tests.
-     *
-     * @param klass the class under test
-     * @param module used to inject a custom Guice module
-     * @throws InitializationError if some JUnit-related initialization problem occurred
-     */
-    public SerenityRunner(Class<?> klass, Module module) throws InitializationError {
-        this(klass, Injectors.getInjector(module));
-    }
+//LITE:
+//    /**
+//     * Creates a new test runner for WebDriver web tests.
+//     *
+//     * @param klass the class under test
+//     * @param module used to inject a custom Guice module
+//     * @throws InitializationError if some JUnit-related initialization problem occurred
+//     */
+//    public SerenityRunner(Class<?> klass, Module module) throws InitializationError {
+//        this(klass, Injectors.getInjector(module));
+//    }
+//
+//    public SerenityRunner(final Class<?> klass,
+//                          final Injector injector) throws InitializationError {
+//        this(klass,
+//                ThucydidesWebDriverSupport.getWebdriverManager(),
+//                injector.getInstance(Configuration.class),
+//                injector.getInstance(BatchManager.class)
+//        );
+//    }
+//
+//    public SerenityRunner(final Class<?> klass,
+//                          final WebDriverFactory webDriverFactory) throws InitializationError {
+//        this(klass, webDriverFactory, ConfiguredEnvironment.getConfiguration());
+//    }
+//
+//    public SerenityRunner(final Class<?> klass,
+//                          final WebDriverFactory webDriverFactory,
+//                          final Configuration configuration) throws InitializationError {
+//        this(klass,
+//                webDriverFactory,
+//                configuration,
+//                new BatchManagerProvider(configuration).get()
+//        );
+//    }
+//
+//    public SerenityRunner(final Class<?> klass,
+//                          final WebDriverFactory webDriverFactory,
+//                          final Configuration configuration,
+//                          final BatchManager batchManager) throws InitializationError {
+//        this(klass,
+//                ThucydidesWebDriverSupport.getWebdriverManager(webDriverFactory, configuration),
+//                configuration,
+//                batchManager
+//        );
+//    }
+//
+//    public SerenityRunner(final Class<?> klass, final BatchManager batchManager) throws InitializationError {
+//        this(klass,
+//                ThucydidesWebDriverSupport.getWebdriverManager(),
+//                ConfiguredEnvironment.getConfiguration(),
+//                batchManager);
+//    }
 
     public SerenityRunner(final Class<?> klass,
-                          final Injector injector) throws InitializationError {
-        this(klass,
-                ThucydidesWebDriverSupport.getWebdriverManager(),
-                injector.getInstance(Configuration.class),
-                injector.getInstance(BatchManager.class)
-        );
-    }
-
-    public SerenityRunner(final Class<?> klass,
-                          final WebDriverFactory webDriverFactory) throws InitializationError {
-        this(klass, webDriverFactory, ConfiguredEnvironment.getConfiguration());
-    }
-
-    public SerenityRunner(final Class<?> klass,
-                          final WebDriverFactory webDriverFactory,
-                          final Configuration configuration) throws InitializationError {
-        this(klass,
-                webDriverFactory,
-                configuration,
-                new BatchManagerProvider(configuration).get()
-        );
-    }
-
-    public SerenityRunner(final Class<?> klass,
-                          final WebDriverFactory webDriverFactory,
-                          final Configuration configuration,
-                          final BatchManager batchManager) throws InitializationError {
-        this(klass,
-                ThucydidesWebDriverSupport.getWebdriverManager(webDriverFactory, configuration),
-                configuration,
-                batchManager
-        );
-    }
-
-    public SerenityRunner(final Class<?> klass, final BatchManager batchManager) throws InitializationError {
-        this(klass,
-                ThucydidesWebDriverSupport.getWebdriverManager(),
-                ConfiguredEnvironment.getConfiguration(),
-                batchManager);
-    }
-
-    public SerenityRunner(final Class<?> klass,
-                          final WebdriverManager webDriverManager,
+                          /*LITE:final WebdriverManager webDriverManager,*/
                           final Configuration configuration,
                           final BatchManager batchManager) throws InitializationError {
         super(klass);
 
         this.theTest = TestConfiguration.forClass(klass).withSystemConfiguration(configuration);
-        this.webdriverManager = webDriverManager;
+        //LITE:this.webdriverManager = webDriverManager;
         this.configuration = configuration;
-        this.requestedDriver = getSpecifiedDriver(klass);
+        //LITE:this.requestedDriver = getSpecifiedDriver(klass);
         this.tagScanner = new TagScanner(configuration.getEnvironmentVariables());
         this.failureDetectingStepListener = new FailureDetectingStepListener();
         this.failureRerunner = new FailureRerunnerXml(configuration);
 
-        if (TestCaseAnnotations.supportsWebTests(klass)) {
-            checkRequestedDriverType();
-        }
+//LITE        if (TestCaseAnnotations.supportsWebTests(klass)) {
+//            checkRequestedDriverType();
+//        }
 
         this.batchManager = batchManager;
 
@@ -178,13 +178,13 @@ public class SerenityRunner extends BlockJUnit4ClassRunner implements Taggable {
     }
 
 
-    private String getSpecifiedDriver(Class<?> klass) {
-        if (ManagedWebDriverAnnotatedField.hasManagedWebdriverField(klass)) {
-            return ManagedWebDriverAnnotatedField.findFirstAnnotatedField(klass).getDriver();
-        } else {
-            return null;
-        }
-    }
+//LITE:    private String getSpecifiedDriver(Class<?> klass) {
+//        if (ManagedWebDriverAnnotatedField.hasManagedWebdriverField(klass)) {
+//            return ManagedWebDriverAnnotatedField.findFirstAnnotatedField(klass).getDriver();
+//        } else {
+//            return null;
+//        }
+//    }
 
     /**
      * The Configuration class manages output directories and driver types.
@@ -207,17 +207,17 @@ public class SerenityRunner extends BlockJUnit4ClassRunner implements Taggable {
      * Ensure that the requested driver type is valid before we start the tests.
      * Otherwise, throw an InitializationError.
      */
-    private void checkRequestedDriverType() {
-        if (requestedDriverSpecified()) {
-            SupportedWebDriver.getDriverTypeFor(requestedDriver);
-        } else {
-            getConfiguration().getDriverType();
-        }
-    }
-
-    private boolean requestedDriverSpecified() {
-        return !isEmpty(this.requestedDriver);
-    }
+//LITE:    private void checkRequestedDriverType() {
+//        if (requestedDriverSpecified()) {
+//            SupportedWebDriver.getDriverTypeFor(requestedDriver);
+//        } else {
+//            getConfiguration().getDriverType();
+//        }
+//    }
+//
+//    private boolean requestedDriverSpecified() {
+//        return !isEmpty(this.requestedDriver);
+//    }
 
     public File getOutputDirectory() {
         return getConfiguration().getOutputDirectory();
@@ -334,11 +334,11 @@ public class SerenityRunner extends BlockJUnit4ClassRunner implements Taggable {
 
         initStepEventBus();
         if (webtestsAreSupported()) {
-            ThucydidesWebDriverSupport.initialize(requestedDriver);
-            WebDriver driver = ThucydidesWebDriverSupport.getWebdriverManager().getWebdriver();
-            initPagesObjectUsing(driver);
-            setStepListener(initListenersUsing(getPages()));
-            initStepFactoryUsing(getPages());
+//LITE:            ThucydidesWebDriverSupport.initialize(requestedDriver);
+//            WebDriver driver = ThucydidesWebDriverSupport.getWebdriverManager().getWebdriver();
+//            initPagesObjectUsing(driver);
+//            setStepListener(initListenersUsing(getPages()));
+//            initStepFactoryUsing(getPages());
         } else {
             setStepListener(initListeners());
             initStepFactory();
@@ -359,18 +359,18 @@ public class SerenityRunner extends BlockJUnit4ClassRunner implements Taggable {
         StepEventBus.getEventBus().clear();
     }
 
-    private void initPagesObjectUsing(final WebDriver driver) {
-        pages = new Pages(driver, getConfiguration());
-        dependencyInjector = new PageObjectDependencyInjector(pages);
-    }
-
-    protected JUnitStepListener initListenersUsing(final Pages pageFactory) {
-
-        return JUnitStepListener.withOutputDirectory(getConfiguration().getOutputDirectory())
-                .and().withPageFactory(pageFactory)
-                .and().withTestClass(getTestClass().getJavaClass())
-                .and().build();
-    }
+//LITE:    private void initPagesObjectUsing(final WebDriver driver) {
+//        pages = new Pages(driver, getConfiguration());
+//        dependencyInjector = new PageObjectDependencyInjector(pages);
+//    }
+//
+//    protected JUnitStepListener initListenersUsing(final Pages pageFactory) {
+//
+//        return JUnitStepListener.withOutputDirectory(getConfiguration().getOutputDirectory())
+//                .and().withPageFactory(pageFactory)
+//                .and().withTestClass(getTestClass().getJavaClass())
+//                .and().build();
+//    }
 
     protected JUnitStepListener initListeners() {
         return JUnitStepListener.withOutputDirectory(getConfiguration().getOutputDirectory())
@@ -379,12 +379,13 @@ public class SerenityRunner extends BlockJUnit4ClassRunner implements Taggable {
     }
 
     private boolean webtestsAreSupported() {
-        return TestCaseAnnotations.supportsWebTests(this.getTestClass().getJavaClass());
+        return false;
+//LITE:        return TestCaseAnnotations.supportsWebTests(this.getTestClass().getJavaClass());
     }
 
-    private void initStepFactoryUsing(final Pages pagesObject) {
-        stepFactory = new StepFactory(pagesObject);
-    }
+//LITE:    private void initStepFactoryUsing(final Pages pagesObject) {
+//        stepFactory = new StepFactory(pagesObject);
+//    }
 
     private void initStepFactory() {
         stepFactory = new StepFactory();
@@ -440,7 +441,7 @@ public class SerenityRunner extends BlockJUnit4ClassRunner implements Taggable {
         }
 
         initializeTestSession();
-        prepareBrowserForTest();
+//LITE:        prepareBrowserForTest();
         additionalBrowserCleanup();
 
         performRunChild(method, notifier);
@@ -540,11 +541,11 @@ public class SerenityRunner extends BlockJUnit4ClassRunner implements Taggable {
         }
     }
 
-    protected void prepareBrowserForTest() {
-        if (theTest.shouldClearTheBrowserSession()) {
-            WebdriverProxyFactory.clearBrowserSession(getDriver());
-        }
-    }
+//LITE:    protected void prepareBrowserForTest() {
+//        if (theTest.shouldClearTheBrowserSession()) {
+//            WebdriverProxyFactory.clearBrowserSession(getDriver());
+//        }
+//    }
 
     /**
      * Running a unit test, which represents a test scenario.
@@ -553,10 +554,10 @@ public class SerenityRunner extends BlockJUnit4ClassRunner implements Taggable {
     protected Statement methodInvoker(final FrameworkMethod method, final Object test) {
 
         if (webtestsAreSupported()) {
-            injectDriverInto(test);
-            initPagesObjectUsing(driverFor(method));
-            injectAnnotatedPagesObjectInto(test);
-            initStepFactoryUsing(getPages());
+//LITE:            injectDriverInto(test);
+//            initPagesObjectUsing(driverFor(method));
+//            injectAnnotatedPagesObjectInto(test);
+//            initStepFactoryUsing(getPages());
         }
 
         injectScenarioStepsInto(test);
@@ -571,24 +572,24 @@ public class SerenityRunner extends BlockJUnit4ClassRunner implements Taggable {
         StepData.setDefaultStepFactory(stepFactory);
     }
 
-    /**
-     * Instantiate the @Managed-annotated WebDriver instance with current WebDriver.
-     * @param testCase A Serenity-annotated test class
-     */
-    protected void injectDriverInto(final Object testCase) {
-        TestCaseAnnotations.forTestCase(testCase).injectDrivers(ThucydidesWebDriverSupport.getDriver(),
-                                                                ThucydidesWebDriverSupport.getWebdriverManager());
-        dependencyInjector.injectDependenciesInto(testCase);
-    }
-
-    protected WebDriver driverFor(final FrameworkMethod method) {
-        if (TestMethodAnnotations.forTest(method).isDriverSpecified()) {
-            String testSpecificDriver = TestMethodAnnotations.forTest(method).specifiedDriver();
-            return getDriver(testSpecificDriver);
-        } else {
-            return getDriver();
-        }
-    }
+//LITE:    /**
+//     * Instantiate the @Managed-annotated WebDriver instance with current WebDriver.
+//     * @param testCase A Serenity-annotated test class
+//     */
+//    protected void injectDriverInto(final Object testCase) {
+//        TestCaseAnnotations.forTestCase(testCase).injectDrivers(ThucydidesWebDriverSupport.getDriver(),
+//                                                                ThucydidesWebDriverSupport.getWebdriverManager());
+//        dependencyInjector.injectDependenciesInto(testCase);
+//    }
+//
+//    protected WebDriver driverFor(final FrameworkMethod method) {
+//        if (TestMethodAnnotations.forTest(method).isDriverSpecified()) {
+//            String testSpecificDriver = TestMethodAnnotations.forTest(method).specifiedDriver();
+//            return getDriver(testSpecificDriver);
+//        } else {
+//            return getDriver();
+//        }
+//    }
 
     /**
      * Instantiates the @ManagedPages-annotated Pages instance using current WebDriver.
@@ -598,28 +599,28 @@ public class SerenityRunner extends BlockJUnit4ClassRunner implements Taggable {
         StepAnnotations.injectScenarioStepsInto(testCase, stepFactory);
     }
 
-    /**
-     * Instantiates the @ManagedPages-annotated Pages instance using current WebDriver.
-     * @param testCase A Serenity-annotated test class
-         */
-    protected void injectAnnotatedPagesObjectInto(final Object testCase) {
-        StepAnnotations.injectAnnotatedPagesObjectInto(testCase, pages);
-    }
+//LITE:    /**
+//     * Instantiates the @ManagedPages-annotated Pages instance using current WebDriver.
+//     * @param testCase A Serenity-annotated test class
+//         */
+//    protected void injectAnnotatedPagesObjectInto(final Object testCase) {
+//        StepAnnotations.injectAnnotatedPagesObjectInto(testCase, pages);
+//    }
 
     protected void injectEnvironmentVariablesInto(final Object testCase) {
         EnvironmentDependencyInjector environmentDependencyInjector = new EnvironmentDependencyInjector();
         environmentDependencyInjector.injectDependenciesInto(testCase);
     }
 
-    protected WebDriver getDriver() {
-        return (isEmpty(requestedDriver)) ? ThucydidesWebDriverSupport.getWebdriverManager().getWebdriver()
-                : ThucydidesWebDriverSupport.getWebdriverManager().getWebdriver(requestedDriver);
-    }
-
-    protected WebDriver getDriver(final String driver) {
-        return (isEmpty(driver)) ? ThucydidesWebDriverSupport.getWebdriverManager().getWebdriver()
-                                 : ThucydidesWebDriverSupport.getWebdriverManager().getWebdriver(driver);
-    }
+//LITE:    protected WebDriver getDriver() {
+//        return (isEmpty(requestedDriver)) ? ThucydidesWebDriverSupport.getWebdriverManager().getWebdriver()
+//                : ThucydidesWebDriverSupport.getWebdriverManager().getWebdriver(requestedDriver);
+//    }
+//
+//    protected WebDriver getDriver(final String driver) {
+//        return (isEmpty(driver)) ? ThucydidesWebDriverSupport.getWebdriverManager().getWebdriver()
+//                                 : ThucydidesWebDriverSupport.getWebdriverManager().getWebdriver(driver);
+//    }
 
     /**
      * Find the current set of test outcomes produced by the test execution.

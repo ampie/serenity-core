@@ -7,7 +7,7 @@ import net.thucydides.core.util.EnvironmentVariables;
 import java.io.File;
 
 public interface Configuration {
-    SupportedWebDriver getDriverType();
+    //LITE: SupportedWebDriver getDriverType();
 
     int getStepDelay();
 
@@ -42,7 +42,7 @@ public interface Configuration {
 
     int getCurrentTestCount();
 
-    String getBaseUrl();
+    //LITE:String getBaseUrl();
 
     /**
      * Take a screenshot for each action.

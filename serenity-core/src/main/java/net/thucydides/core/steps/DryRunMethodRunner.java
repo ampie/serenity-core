@@ -1,7 +1,7 @@
 package net.thucydides.core.steps;
 
 import com.google.common.collect.ImmutableList;
-import net.sf.cglib.proxy.MethodProxy;
+import net.serenitybdd.instrumentation.MethodProxy;
 
 import java.lang.reflect.Method;
 import java.util.List;

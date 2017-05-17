@@ -1,19 +1,15 @@
 package net.thucydides.core.util;
 
-import ch.lambdaj.function.convert.DefaultStringConverter;
+//LITE:import ch.lambdaj.function.convert.DefaultStringConverter;
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Maps;
 import org.apache.commons.lang3.StringUtils;
 
-import java.io.IOException;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Properties;
+import java.util.*;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
-import static ch.lambdaj.Lambda.convert;
+//LITE:import static ch.lambdaj.Lambda.convert;
 
 /**
  * Return system environment variable values.
@@ -57,12 +53,12 @@ public class SystemEnvironmentVariables implements EnvironmentVariables {
     }
 
     public List<String> getKeys() {
-        return convert(properties.keySet(), toStrings());
+        return new ArrayList<String>(properties.keySet()); //LITE:return convert(properties.keySet(), toStrings());
     }
 
-    private DefaultStringConverter toStrings() {
-        return new DefaultStringConverter();
-    }
+//LITE:    private DefaultStringConverter toStrings() {
+//LITE:        return new DefaultStringConverter();
+//LITE:    }
 
     @Override
     public Properties getProperties() {
@@ -164,15 +160,15 @@ public class SystemEnvironmentVariables implements EnvironmentVariables {
     public EnvironmentVariables copy() {
         return new SystemEnvironmentVariables(getProperties(), systemValues);
     }
-
     public static EnvironmentVariables createEnvironmentVariables() {
         EnvironmentVariables environmentVariables = new SystemEnvironmentVariables();
-        LocalPreferences localPreferences = new PropertiesFileLocalPreferences(environmentVariables);
-        try {
-            localPreferences.loadPreferences();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+//LITE:
+//        LocalPreferences localPreferences = new PropertiesFileLocalPreferences(environmentVariables);
+//        try {
+//            localPreferences.loadPreferences();
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
         return environmentVariables;
     }
 }

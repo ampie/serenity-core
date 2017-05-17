@@ -1,9 +1,58 @@
+
+buildscript {
+    repositories {
+        mavenLocal()
+        jcenter()
+        maven {
+            url 'https://geonet.artifactoryonline.com/geonet/public-releases'
+        }
+    }
+}
+
+apply plugin: 'java'
+apply plugin: 'groovy'
+apply plugin: 'eclipse'
+apply plugin: 'idea'
+apply plugin: 'maven'
+apply plugin: 'maven-publish'
+
+sourceCompatibility = 1.7
+targetCompatibility = 1.7
+
+repositories {
+    mavenLocal()
+    jcenter()
+}
+
+
 ext {
-    bintrayPackage = 'serenity-journey'
-    projectDescription = 'Support for the User Journey pattern in Serenity'
+    projectDescription = 'Lightweight support for the Screenplay pattern in Serenity'
 }
 
 dependencies {
-    compile project(':serenity-core')
+    compile( project(":serenity-core"))
+    compile("junit:junit:4.12")
+    compile("org.slf4j:slf4j-api:1.7.21")
+    compile("org.hamcrest:hamcrest-core:1.3")
+    compile("org.hamcrest:hamcrest-library:1.3")
+    compile("joda-time:joda-time:2.7")//For one single use..
+    compile("com.google.guava:guava:21.0")
+    compile("com.google.code.gson:gson:2.6.1")
+    compile("org.apache.commons:commons-lang3:3.4")
+    compile("commons-codec:commons-codec:1.10")//For one single use...
+    compile("info.cukes:cucumber-core:1.2.5")
+    compile('net.bytebuddy:byte-buddy:1.6.12')
+    compile('commons-collections:commons-collections:3.2.2')
+//awt dependency compile('org.imgscalr:imgscalr-lib:4.2')
+//    compile project(':serenity-core')
     testCompile project(':serenity-junit')
+    testCompile ('org.assertj:assertj-core:1.7.1'){
+        exclude group: 'com.google.guava'
+
+    }
+    testCompile('org.spockframework:spock-core:1.1-groovy-2.4-rc-4') {
+        exclude group: "junit"
+        exclude module: "groovy-all"
+        exclude group: 'com.google.guava'
+    }
 }

@@ -1,8 +1,6 @@
 package net.thucydides.core.statistics.service;
 
-import com.google.common.base.Splitter;
 import com.google.common.collect.ImmutableSet;
-import net.thucydides.core.ThucydidesSystemProperty;
 import net.thucydides.core.guice.Injectors;
 import net.thucydides.core.model.TestOutcome;
 import net.thucydides.core.model.TestTag;
@@ -11,12 +9,11 @@ import net.thucydides.core.util.EnvironmentVariables;
 import org.apache.commons.lang3.StringUtils;
 
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
-import static ch.lambdaj.Lambda.convert;
 import static net.thucydides.core.ThucydidesSystemProperty.THUCYDIDES_ADD_CONTEXT_TAG;
-import static net.thucydides.core.tags.TagConverters.fromStringsToTestTags;
+
+//import net.thucydides.core.guice.Injectors;
 
 /**
  * Allows tags to be added via the injected.tag system property.

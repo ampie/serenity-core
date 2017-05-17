@@ -1,7 +1,10 @@
 package net.thucydides.core.steps;
 
-import net.sf.cglib.proxy.MethodInterceptor;
-import net.sf.cglib.proxy.MethodProxy;
+//LITE:import net.sf.cglib.proxy.MethodInterceptor;
+//LITE:import net.sf.cglib.proxy.MethodProxy;
+
+import net.serenitybdd.instrumentation.Interceptor;
+import net.serenitybdd.instrumentation.MethodProxy;
 
 import java.lang.reflect.Method;
 import java.util.List;
@@ -9,7 +12,7 @@ import java.util.List;
 /**
  * Invoke a step multiple times, each time initialized with a different set of test data.
  */
-public class DataDrivenStepInterceptor implements MethodInterceptor {
+public class DataDrivenStepInterceptor implements Interceptor {
 
     private List<?> instantiatedSteps;
 
@@ -34,7 +37,7 @@ public class DataDrivenStepInterceptor implements MethodInterceptor {
         if (isFinalizer(method)) {
             return this;
         }
-        return proxy.invoke(steps, args);
+        return method.invoke(steps, args);
     }
 
     private boolean isFinalizer(Method method) {

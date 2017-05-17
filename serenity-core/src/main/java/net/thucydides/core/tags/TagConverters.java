@@ -1,7 +1,8 @@
 package net.thucydides.core.tags;
 
-import ch.lambdaj.function.convert.Converter;
+//LITE:import ch.lambdaj.function.convert.Converter;
 import net.thucydides.core.annotations.WithTag;
+import ch.lambdaj.function.convert.Converter;
 import net.thucydides.core.model.TestTag;
 import org.apache.commons.lang3.StringUtils;
 

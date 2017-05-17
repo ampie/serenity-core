@@ -5,7 +5,7 @@ import java.util.concurrent.ExecutorService;
 /**
  * Created by john on 23/07/2015.
  */
-public interface ExecutorServiceProvider  {
+public interface ExecutorServiceProvider {
 
     ExecutorService getExecutorService();
 }

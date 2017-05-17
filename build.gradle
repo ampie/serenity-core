@@ -88,7 +88,7 @@ allprojects {
 }
 
 release {
-    grgit = Grgit.open()
+    grgit = Grgit.open(currentDir: projectDir)
     defaultVersionStrategy Strategies.SNAPSHOT
     versionStrategy Strategies.SNAPSHOT
 }
@@ -208,30 +208,30 @@ subprojects {
 
     dependencies {
         compile "com.google.guava:guava:${guavaVersion}"
-        compile "com.google.code.findbugs:jsr305:3.0.1"
-        compile("com.google.inject:guice:3.0") {
-            exclude group:"org.ow2.asm", module:"asm"
-            exclude group:"asm", module:"asm"
-            exclude group:"org.sonatype.sisu.inject", module:"cglib"
-        }
+//        compile "com.google.code.findbugs:jsr305:3.0.1"
+//        compile("com.google.inject:guice:3.0") {
+//            exclude group:"org.ow2.asm", module:"asm"
+//            exclude group:"asm", module:"asm"
+//            exclude group:"org.sonatype.sisu.inject", module:"cglib"
+//        }
 
-        compile ('cglib:cglib:3.1') {
-            exclude group:"org.ow2.asm", module:"asm"
-        }
-        compile ('org.ow2.asm:asm:5.0.3')
+//        compile ('cglib:cglib:3.1') {
+//            exclude group:"org.ow2.asm", module:"asm"
+//        }
+//        compile ('org.ow2.asm:asm:5.0.3')
 
         compile "commons-codec:commons-codec:${commonsCodecVersion}"
-        compile "org.objenesis:objenesis:2.1"
+//        compile "org.objenesis:objenesis:2.1"
         compile "org.slf4j:slf4j-api:1.7.21"
         compile "xml-apis:xml-apis:1.4.01"
         compile 'info.cukes:cucumber-core:1.2.5'
 
         compile 'commons-logging:commons-logging:1.2'
         compile "junit:junit:${junitVersion}"
-        compile("org.mockito:mockito-core:${mockitoCoreVersion}") {
-            exclude group: "org.hamcrest", module:"hamcrest-core"
-            exclude group: "org.objenesis", module:"objenesis"
-        }
+//        compile("org.mockito:mockito-core:${mockitoCoreVersion}") {
+//            exclude group: "org.hamcrest", module:"hamcrest-core"
+//            exclude group: "org.objenesis", module:"objenesis"
+//        }
         compile 'net.bytebuddy:byte-buddy:1.6.12'
 
         testCompile ("ch.qos.logback:logback-classic:1.1.7") {

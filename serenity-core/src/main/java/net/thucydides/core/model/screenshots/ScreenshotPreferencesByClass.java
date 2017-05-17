@@ -1,16 +1,13 @@
 package net.thucydides.core.model.screenshots;
 
-import com.beust.jcommander.internal.Lists;
+//import com.beust.jcommander.internal.Lists;
 import com.google.common.base.Optional;
 import com.google.common.collect.Maps;
 import net.thucydides.core.model.TakeScreenshots;
 import net.thucydides.core.util.EnvironmentVariables;
 import net.thucydides.core.util.Inflector;
 
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class ScreenshotPreferencesByClass {
     public static final String SERENITY_TAKE_SCREENSHOTS_FOR = "serenity.take.screenshots.for.";
@@ -72,7 +69,7 @@ public class ScreenshotPreferencesByClass {
     }
 
     private List<Class<?>> getSuperClassesAndInterfacesFrom(Class<?> declaringClass) {
-        List<Class<?>> superClassesAndInterfaces = Lists.newArrayList();
+        List<Class<?>> superClassesAndInterfaces = new ArrayList<>();
         
         superClassesAndInterfaces.add(declaringClass);
 
@@ -85,8 +82,8 @@ public class ScreenshotPreferencesByClass {
     }
 
     private Collection<Class<?>> interfacesFrom(Class<?> declaringClass) {
-        List<Class<?>> interfaces = Lists.newArrayList();
-        interfaces.addAll(Lists.newArrayList(declaringClass.getInterfaces()));
+        List<Class<?>> interfaces = new ArrayList<>();
+        interfaces.addAll(Arrays.asList(declaringClass.getInterfaces()));
         for(Class<?> anInterface : declaringClass.getInterfaces()) {
             interfaces.addAll(superclassesFrom(anInterface));
             interfaces.addAll(interfacesFrom(anInterface));
@@ -95,7 +92,7 @@ public class ScreenshotPreferencesByClass {
     }
 
     private Collection<Class<?>> allInterfacesFrom(Collection<Class<?>> superclasses) {
-        List<Class<?>> interfaces = Lists.newArrayList();
+        List<Class<?>> interfaces = new ArrayList<>();
         for(Class<?> superclass : superclasses) {
             interfaces.addAll(interfacesFrom(superclass));
         }
@@ -103,7 +100,7 @@ public class ScreenshotPreferencesByClass {
     }
 
     private Collection<Class<?>> superclassesFrom(Class<?> declaringClass) {
-        List<Class<?>> superClasses = Lists.newArrayList();
+        List<Class<?>> superClasses = new ArrayList<>();
         Class<?> superClass = declaringClass.getSuperclass();
         while (superClass != null) {
             superClasses.add(superClass);

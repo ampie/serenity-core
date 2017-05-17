@@ -18,7 +18,7 @@ public class SafelyMoveFiles {
     public SafelyMoveFiles(Path origin, int maxRetries) {
         this.origin = origin;
         this.maxRetries = maxRetries;
-        this.clock = Injectors.getInjector().getInstance(net.serenitybdd.core.time.SystemClock.class);
+        this.clock = Injectors.getInjector().getInstance(SystemClock.class);
     }
 
     public static SafelyMoveFilesBuilder withMaxRetriesOf(int maxRetries) {

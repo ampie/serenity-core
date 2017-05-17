@@ -1,5 +1,6 @@
 package net.thucydides.core.model;
 
+//LITE:import ch.lambdaj.function.convert.Converter;
 import ch.lambdaj.function.convert.Converter;
 import com.google.common.base.Optional;
 import com.google.common.collect.ImmutableList;
@@ -12,6 +13,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.atomic.AtomicInteger;
+
 
 import static ch.lambdaj.Lambda.convert;
 
@@ -258,6 +260,7 @@ public class DataTable {
             }
             return new DataTableBuilder(scenarioOutline, headers, convert(rowData, toDataTableRows()), title, description, descriptors);
         }
+
 
         private Converter<List<Object>, DataTableRow> toDataTableRows() {
             return new Converter<List<Object>, DataTableRow>() {

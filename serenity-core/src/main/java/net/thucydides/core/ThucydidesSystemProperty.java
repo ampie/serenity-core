@@ -29,7 +29,7 @@ public enum ThucydidesSystemProperty {
     /**
      * If using a provided driver, what type is it.
      * The implementation class needs to be defined in the webdriver.provided.{type} system property.
-    */
+     */
     WEBDRIVER_PROVIDED_TYPE,
 
     /**
@@ -77,95 +77,61 @@ public enum ThucydidesSystemProperty {
      */
     WEBDRIVER_CHROME_BINARY,
 
-    @Deprecated
-    THUCYDIDES_PROJECT_KEY,
-
     /**
      * A unique identifier for the project under test, used to record test statistics.
      */
-    SERENITY_PROJECT_KEY,
-
-    @Deprecated
-    THUCYDIDES_PROJECT_NAME,
+    THUCYDIDES_PROJECT_KEY,
 
     /**
      * What name should appear on the reports
      */
-    SERENITY_PROJECT_NAME,
-
-
-    @Deprecated
-    THUCYDIDES_HOME,
+    THUCYDIDES_PROJECT_NAME,
 
     /**
      * The home directory for Thucydides output and data files - by default, $USER_HOME/.thucydides
      */
-    SERENITY_HOME,
-
-    @Deprecated
-    THUCYDIDES_REPORT_RESOURCES,
+    THUCYDIDES_HOME,
 
     /**
      * Indicates a directory from which the resources for the HTML reports should be copied.
      * This directory currently needs to be provided in a JAR file.
      */
-    SERENITY_REPORT_RESOURCES,
+    THUCYDIDES_REPORT_RESOURCES,
 
     /**
      * Encoding for reports output
      */
-    @Deprecated
     THUCYDIDES_REPORT_ENCODING,
 
     /**
-     * Encoding for reports output
+     * Where should reports be generated (use the system property 'thucydides.outputDirectory').
      */
-    SERENITY_REPORT_ENCODING,
-
-    @Deprecated
     THUCYDIDES_OUTPUT_DIRECTORY("thucydides.outputDirectory"),
-
-    /**
-     * Where should reports be generated (use the system property 'serenity.outputDirectory').
-     */
     SERENITY_OUTPUT_DIRECTORY("serenity.outputDirectory"),
 
     /**
      * Default name of report with configurations. It will contains some values that was used during generation of reports
      */
-    @Deprecated
     THUCYDIDES_CONFIGURATION_REPORT("thucydides.configuration.json"),
-
-    /**
-     * Default name of report with configurations. It will contains some values that was used during generation of reports
-     */
-    SERENITY_CONFIGURATION_REPORT("serenity.configuration.json"),
-
-    @Deprecated
-    THUCYDIDES_FLOW_REPORTS_DIR("flow"),
 
     /**
      * Default name of folder, with reports about test flow and aggregation report generation
      */
-    SERENITY_FLOW_REPORTS_DIR("flow"),
+    THUCYDIDES_FLOW_REPORTS_DIR("flow"),
 
     /**
      * Should Thucydides only store screenshots for failing steps?
      * This can save disk space and speed up the tests somewhat. Useful for data-driven testing.
      * @deprecated This property is still supported, but thucydides.take.screenshots provides more fine-grained control.
      */
-    @Deprecated
     THUCYDIDES_ONLY_SAVE_FAILING_SCREENSHOTS,
-
-    @Deprecated
-    THUCYDIDES_DRIVER_CAPABILITIES,
 
     /**
      * A set of user-defined capabilities to be used to configure the WebDriver driver.
      * Capabilities should be passed in as a space or semi-colon-separated list of key:value pairs, e.g.
      * "build:build-1234; max-duration:300; single-window:true; tags:[tag1,tag2,tag3]"
      */
-    SERENITY_DRIVER_CAPABILITIES,
+    THUCYDIDES_DRIVER_CAPABILITIES,
 
     /**
      * Should Thucydides take screenshots for every clicked button and every selected link?
@@ -176,20 +142,12 @@ public enum ThucydidesSystemProperty {
      * This will be overridden if the THUCYDIDES_ONLY_SAVE_FAILING_SCREENSHOTS option is set to true.
      * @deprecated This property is still supported, but thucydides.take.screenshots provides more fine-grained control.
      */
-    @Deprecated
     THUCYDIDES_VERBOSE_SCREENSHOTS,
-
-    @Deprecated
-    THUCYDIDES_VERBOSE_STEPS,
 
     /**
      * If set to true, WebElementFacade events and other step actions will be logged to the console.
      */
-    SERENITY_VERBOSE_STEPS,
-
-
-    @Deprecated
-    THUCYDIDES_TAKE_SCREENSHOTS,
+    THUCYDIDES_VERBOSE_STEPS,
 
     /**
      *  Fine-grained control over when screenshots are to be taken.
@@ -201,102 +159,64 @@ public enum ThucydidesSystemProperty {
      *      <li>FOR_FAILURES</li>
      *  </ul>
      */
-    SERENITY_TAKE_SCREENSHOTS,
-
-    @Deprecated
-    THUCYDIDES_REPORTS_SHOW_STEP_DETAILS,
+    THUCYDIDES_TAKE_SCREENSHOTS,
 
     /**
      * Should Thucydides display detailed information in the test result tables.
      * If this is set to true, test result tables will display a breakdown of the steps by result.
      * This is false by default.
      */
-    SERENITY_REPORTS_SHOW_STEP_DETAILS,
-
-    @Deprecated
-    THUCYDIDES_REPORT_SHOW_MANUAL_TESTS,
+    THUCYDIDES_REPORTS_SHOW_STEP_DETAILS,
 
     /**
      * Show statistics for manual tests in the test reports.
      */
-    SERENITY_REPORT_SHOW_MANUAL_TESTS,
-
-    @Deprecated
-    THUCYDIDES_REPORT_SHOW_RELEASES,
+    THUCYDIDES_REPORT_SHOW_MANUAL_TESTS,
 
     /**
      * Report on releases
      */
-    SERENITY_REPORT_SHOW_RELEASES,
+    THUCYDIDES_REPORT_SHOW_RELEASES,
 
-    @Deprecated
     THUCYDIDES_REPORT_SHOW_PROGRESS,
 
-    SERENITY_REPORT_SHOW_PROGRESS,
-
-    @Deprecated
     THUCYDIDES_REPORT_SHOW_HISTORY,
 
-    SERENITY_REPORT_SHOW_HISTORY,
-
-    @Deprecated
     THUCYDIDES_REPORT_SHOW_TAG_MENUS,
 
-    SERENITY_REPORT_SHOW_TAG_MENUS,
-
-    @Deprecated
     THUCYDIDES_REPORT_TAG_MENUS,
 
-    SERENITY_REPORT_TAG_MENUS,
-
-    @Deprecated
     THUCYDIDES_EXCLUDE_UNRELATED_REQUIREMENTS_OF_TYPE,
-
-    SERENITY_EXCLUDE_UNRELATED_REQUIREMENTS_OF_TYPE,
-
-    @Deprecated
-    THUCYDIDES_RESTART_BROWSER_FREQUENCY,
 
     /**
      * Restart the browser every so often during data-driven tests.
      */
-    SERENITY_RESTART_BROWSER_FREQUENCY,
-
-    @Deprecated
-    THUCYDIDES_RESTART_BROWSER_FOR_EACH,
+    THUCYDIDES_RESTART_BROWSER_FREQUENCY,
 
     /**
      * Indicate when a browser should be restarted during a test run.
      * Can be one of: example, scenario, story, feature, never
      *
      */
-    SERENITY_RESTART_BROWSER_FOR_EACH,
-
-    @Deprecated
-    THUCYDIDES_DIFFERENT_BROWSER_FOR_EACH_ACTOR,
+    THUCYDIDES_RESTART_BROWSER_FOR_EACH,
 
     /**
      * When multiple actors are used with the Screenplay pattern, a separate browser is configured for each actor.
      * Set this property to false if you want actors use a common browser.
      * This can be useful if actors are used to illustrate the intent of a test, but no tests use more than one actor simultaneously
      */
-    SERENITY_DIFFERENT_BROWSER_FOR_EACH_ACTOR,
-
-    @Deprecated
-    THUCYDIDES_STEP_DELAY,
+    THUCYDIDES_DIFFERENT_BROWSER_FOR_EACH_ACTOR,
 
     /**
      * Pause (in ms) between each test step.
      */
-    SERENITY_STEP_DELAY,
+    THUCYDIDES_STEP_DELAY,
 
-    @Deprecated
-    THUCYDIDES_TIMEOUT,
 
     /**
      * How long should the driver wait for elements not immediately visible, in seconds.
      */
-    SERENITY_TIMEOUT,
+    THUCYDIDES_TIMEOUT,
 
     /**
      * Don't accept sites using untrusted certificates.
@@ -311,42 +231,30 @@ public enum ThucydidesSystemProperty {
     @Deprecated
     THUCYDIDES_USE_UNIQUE_BROWSER,
 
-    @Deprecated
-    THUCYDIDES_ESTIMATED_AVERAGE_STEP_COUNT,
-
     /**
      * The estimated number of steps in a pending scenario.
      * This is used for stories where no scenarios have been defined.
      */
-    SERENITY_ESTIMATED_AVERAGE_STEP_COUNT,
-
-    @Deprecated
-    THUCYDIDES_ESTIMATED_TESTS_PER_REQUIREMENT,
+    THUCYDIDES_ESTIMATED_AVERAGE_STEP_COUNT,
 
     /**
      * The estimated number of tests in a typical story.
      * Used to estimate functional coverage in the requirements reports.
      */
-    SERENITY_ESTIMATED_TESTS_PER_REQUIREMENT,
-
-    @Deprecated
-    THUCYDIDES_ISSUE_TRACKER_URL,
+    THUCYDIDES_ESTIMATED_TESTS_PER_REQUIREMENT,
 
     /**
      *  Base URL for the issue tracking system to be referred to in the reports.
      *  If defined, any issues quoted in the form #1234 will be linked to the relevant
      *  issue in the issue tracking system. Works with JIRA, Trac etc.
      */
-    SERENITY_ISSUE_TRACKER_URL,
-
-    @Deprecated
-    THUCYDIDES_NATIVE_EVENTS,
+    THUCYDIDES_ISSUE_TRACKER_URL,
 
     /**
      * Activate native events in Firefox.
      * This is true by default, but can cause issues with some versions of linux.
      */
-    SERENITY_NATIVE_EVENTS,
+    THUCYDIDES_NATIVE_EVENTS,
 
     /**
      * If the base JIRA URL is defined, Thucydides will build the issue tracker url using the standard JIRA form.
@@ -378,64 +286,42 @@ public enum ThucydidesSystemProperty {
      */
     SERENITY_JIRA_WORKFLOW_ACTIVE,
 
-    @Deprecated
-    THUCYDIDES_HISTORY,
-
     /**
      * Base directory in which history files are stored.
      */
-    SERENITY_HISTORY,
+    THUCYDIDES_HISTORY,
 
-    @Deprecated
+    /**
+     *  Redimension the browser to enable larger screenshots.
+     */
     THUCYDIDES_BROWSER_HEIGHT,
-
     /**
      *  Redimension the browser to enable larger screenshots.
      */
-    SERENITY_BROWSER_HEIGHT,
-
-    @Deprecated
     THUCYDIDES_BROWSER_WIDTH,
-
-    /**
-     *  Redimension the browser to enable larger screenshots.
-     */
-    SERENITY_BROWSER_WIDTH,
-
-    @Deprecated
-    THUCYDIDES_BROWSER_MAXIMIZED,
 
     /**
      * Set to true to get WebDriver to maximise the Browser window before the tests are executed.
      */
-    SERENITY_BROWSER_MAXIMIZED,
-
-    @Deprecated
-    THUCYDIDES_RESIZED_IMAGE_WIDTH,
+    THUCYDIDES_BROWSER_MAXIMIZED,
 
     /**
      * If set, resize screenshots to this size to save space.
      */
-    SERENITY_RESIZED_IMAGE_WIDTH,
-
-    @Deprecated
-    THUCYDIDES_PUBLIC_URL,
+    THUCYDIDES_RESIZED_IMAGE_WIDTH,
 
     /**
      * Public URL where the Thucydides reports will be displayed.
      * This is mainly for use by plugins.
      */
-    SERENITY_PUBLIC_URL,
-
-    @Deprecated
-    THUCYDIDES_ACTIVATE_FIREBUGS,
+    THUCYDIDES_PUBLIC_URL,
 
     /**
      * Activate the Firebugs plugin for firefox.
      * Useful for debugging, but not very when running the tests on a build server.
      * It is not activated by default.
      */
-    SERENITY_ACTIVATE_FIREBUGS,
+    THUCYDIDES_ACTIVATE_FIREBUGS,
 
     /**
      * Enable applets in Firefox.
@@ -444,84 +330,54 @@ public enum ThucydidesSystemProperty {
      */
     SECURITY_ENABLE_JAVA("security.enable_java"),
 
-    @Deprecated
     THUCYDIDES_ACTIVATE_HIGHLIGHTING,
-
-    SERENITY_ACTIVATE_HIGHLIGHTING,
-
-    @Deprecated
-    THUCYDIDES_BATCH_STRATEGY,
 
     /**
      * Batch strategy to use for parallel batches.
      * Allowed values - DIVIDE_EQUALLY (default) and DIVIDE_BY_TEST_COUNT
      */
-    SERENITY_BATCH_STRATEGY,
-
-    @Deprecated
-    THUCYDIDES_BATCH_COUNT,
+    THUCYDIDES_BATCH_STRATEGY,
 
     /**
      *  A deprecated property that is synonymous with thucydides.batch.size
      */
-    SERENITY_BATCH_COUNT,
-
-    @Deprecated
-    THUCYDIDES_BATCH_SIZE,
+    THUCYDIDES_BATCH_COUNT,
 
     /**
      *  If batch testing is being used, this is the size of the batches being executed.
      */
-    SERENITY_BATCH_SIZE,
-
-    @Deprecated
-    THUCYDIDES_BATCH_NUMBER,
+    THUCYDIDES_BATCH_SIZE,
 
     /**
      * If batch testing is being used, this is the number of the batch being run on this machine.
      */
-    SERENITY_BATCH_NUMBER,
-
-    @Deprecated
-    THUCYDIDES_PROXY_HTTP,
+    THUCYDIDES_BATCH_NUMBER,
 
     /**
      * HTTP Proxy URL configuration for Firefox and PhantomJS
      */
-    SERENITY_PROXY_HTTP,
-
-    @Deprecated
-    THUCYDIDES_PROXY_HTTP_PORT("thucydides.proxy.http_port"),
+    THUCYDIDES_PROXY_HTTP,
 
     /**
      * HTTP Proxy port configuration for Firefox and PhantomJS
      * Use 'thucydides.proxy.http_port'
      */
-    SERENITY_PROXY_HTTP_PORT("serenity.proxy.http_port"),
-
-    @Deprecated
-    THUCYDIDES_PROXY_TYPE,
+    THUCYDIDES_PROXY_HTTP_PORT("thucydides.proxy.http_port"),
 
     /**
      * HTTP Proxy type configuration for Firefox and PhantomJS
      */
-    SERENITY_PROXY_TYPE,
-
-    @Deprecated
-    THUCYDIDES_PROXY_USER,
+    THUCYDIDES_PROXY_TYPE,
 
     /**
      * HTTP Proxy username configuration for Firefox and PhantomJS
      */
-    SERENITY_PROXY_USER,
-
-    @Deprecated
-    THUCYDIDES_PROXY_PASSWORD,
+    THUCYDIDES_PROXY_USER,
 
     /**
      * HTTP Proxy password configuration for Firefox and PhantomJS
      */
-    SERENITY_PROXY_PASSWORD,
+    THUCYDIDES_PROXY_PASSWORD,
 
     /**
      * How long webdriver waits for elements to appear by default, in milliseconds.
@@ -533,20 +389,18 @@ public enum ThucydidesSystemProperty {
      */
     WEBDRIVER_WAIT_FOR_TIMEOUT,
 
-    @Deprecated
-    THUCYDIDES_EXT_PACKAGES,
-
     /**
      * Extension packages. This is a list of packages that will be scanned for custom TagProvider implementations.
      * To add a custom tag provider, just implement the TagProvider interface and specify the root package for this
      * provider in this parameter.
      */
-    SERENITY_EXT_PACKAGES,
+    THUCYDIDES_EXT_PACKAGES,
 
     /**
      * Arguments to be passed to the Chrome driver, separated by commas.
      */
     CHROME_SWITCHES,
+
 
     /**
      * Preferences to be passed to the Firefox driver, separated by semi-colons (commas often appear in the preference
@@ -560,16 +414,12 @@ public enum ThucydidesSystemProperty {
      * and %USERPROFILE (assuming these are correctly set in the environment)
      */
     WEBDRIVER_FIREFOX_PROFILE,
-
-    @Deprecated
-    THUCYDIDES_JQUERY_INTEGRATION,
-
     /**
      * Enable JQuery integration.
      * If set to true, JQuery will be injected into any page that does not already have it.
      * This option is deactivated by default, as it can slow down page loading.
      */
-    SERENITY_JQUERY_INTEGRATION,
+    THUCYDIDES_JQUERY_INTEGRATION,
 
     SAUCELABS_BROWSERNAME("saucelabs.browserName"),
 
@@ -683,9 +533,6 @@ public enum ThucydidesSystemProperty {
      */
     BROWSERSTACK_IE_ENABLE_POPUPS,
 
-    @Deprecated
-    THUCYDIDES_FILE_IO_RETRY_TIMEOUT,
-
     /**
      * Timeout (in seconds) for retrying file I/O.
      * Used in net.thucydides.core.resources.FileResources.copyResourceTo().
@@ -694,18 +541,12 @@ public enum ThucydidesSystemProperty {
      * This property, if set, will retry copying the resource till timeout. A default value is used
      * if the property is not set.
      */
-    SERENITY_FILE_IO_RETRY_TIMEOUT,
-
-    @Deprecated
-    THUCYDIDES_LOGGING,
+    THUCYDIDES_FILE_IO_RETRY_TIMEOUT,
 
     /**
      * Three levels are supported: QUIET, NORMAL and VERBOSE
      */
-    SERENITY_LOGGING,
-
-    @Deprecated
-    THUCYDIDES_TEST_ROOT,
+    THUCYDIDES_LOGGING,
 
     /**
      * The root package for the tests in a given project.
@@ -717,97 +558,66 @@ public enum ThucydidesSystemProperty {
      * lower level in the hierarchy, use the thucydides.requirement.exclusions property.
      * This is also used by the PackageAnnotationBasedTagProvider to know where to look for annotated requirements.
      */
-    SERENITY_TEST_ROOT,
-
-    @Deprecated
-    THUCYDIDES_REQUIREMENTS_DIR,
+    THUCYDIDES_TEST_ROOT,
 
     /**
      * Use this property if you need to completely override the location of requirements for the File System Provider.
      */
-    SERENITY_REQUIREMENTS_DIR,
-
-    @Deprecated
-    THUCYDIDES_USE_REQUIREMENTS_DIRECTORIES,
+    THUCYDIDES_REQUIREMENTS_DIR,
 
     /**
      * By default, Thucydides will read requirements from the directory structure that contains the stories.
      * When other tag and requirements plugins are used, such as the JIRA plugin, this can cause conflicting
      * tags. Set this property to false to deactivate this feature (it is true by default).
      */
-    SERENITY_USE_REQUIREMENTS_DIRECTORIES,
-
-    @Deprecated
-    THUCYDIDES_ANNOTATED_REQUIREMENTS_DIR,
+    THUCYDIDES_USE_REQUIREMENTS_DIRECTORIES,
 
     /**
      * Use this property if you need to completely override the location of requirements for the Annotated Provider.
      * This is recommended if you use File System and Annotated provider simultaneously.
      * The default value is stories.
      */
-    SERENITY_ANNOTATED_REQUIREMENTS_DIR,
-
-    @Deprecated
-    THUCYDIDES_LOWEST_REQUIREMENT_TYPE,
+    THUCYDIDES_ANNOTATED_REQUIREMENTS_DIR,
 
     /**
      * Determine what the lowest level requirement (test cases, feature files, story files, should be
      * called. 'Story' is used by default. 'feature' is a popular alternative.
      */
-    SERENITY_LOWEST_REQUIREMENT_TYPE,
-
-    @Deprecated
-    THUCYDIDES_REQUIREMENT_TYPES,
+    THUCYDIDES_LOWEST_REQUIREMENT_TYPE,
 
     /**
      * The hierarchy of requirement types.
      * This is the list of requirement types to be used when reading requirements from the file system
      * and when organizing the reports. It is a comma-separated list of tags.The default value is: capability, feature
      */
-    SERENITY_REQUIREMENT_TYPES,
-
-    @Deprecated
-    THUCYDIDES_REQUIREMENT_EXCLUSIONS,
+    THUCYDIDES_REQUIREMENT_TYPES,
 
     /**
      * When deriving requirement types from a path, exclude any values from this comma-separated list.
      */
-    SERENITY_REQUIREMENT_EXCLUSIONS,
-
-    @Deprecated
-    THUCYDIDES_RELEASE_TYPES,
+    THUCYDIDES_REQUIREMENT_EXCLUSIONS,
 
     /**
      * What tag names identify the release types (e.g. Release, Iteration, Sprint).
      * A comma-separated list. By default, "Release, Iteration"
      */
-    SERENITY_RELEASE_TYPES,
-
-    @Deprecated
-    THUCYDIDES_LOCATOR_FACTORY,
+    THUCYDIDES_RELEASE_TYPES,
 
     /**
-     * Normally, Serenity uses SmartElementLocatorFactory, an extension of the AjaxElementLocatorFactory
+     * Normally, Thucydides uses SmartElementLocatorFactory, an extension of the AjaxElementLocatorFactory
      * when instantiating page objects. This is to ensure that web elements are available and usable before they are used.
      * For alternative behaviour, you can set this value to DisplayedElementLocatorFactory, AjaxElementLocatorFactory or DefaultElementLocatorFactory.
      */
-    SERENITY_LOCATOR_FACTORY,
-
-    @Deprecated
+    THUCYDIDES_LOCATOR_FACTORY,
+    /**
+     * Where Thucydides stores local data.
+     */
     THUCYDIDES_DATA_DIR,
 
     /**
-     * Where Serenity stores local data.
-     */
-    SERENITY_DATA_DIR,
-
-    /**
-     * Allows you to override the default serenity.properties location for properties file.
+     * Allows you to override the default thucydides.properties location for properties file.
      */
     PROPERTIES,
-
-    @Deprecated
-    THUCYDIDES_TEST_REQUIREMENTS_BASEDIR,
 
     /**
      *  The base directory in which requirements are kept. It is assumed that this directory contains sub folders
@@ -819,7 +629,7 @@ public enum ThucydidesSystemProperty {
      *  is different from the requirements base dir (for example when building a multi-module project from parent pom with
      *  requirements stored inside a sub-module : See Jira #Thucydides-100)
      */
-    SERENITY_TEST_REQUIREMENTS_BASEDIR,
+    THUCYDIDES_TEST_REQUIREMENTS_BASEDIR,
 
 
     /**
@@ -828,14 +638,11 @@ public enum ThucydidesSystemProperty {
      */
     //    THUCYDIDES_STORE_HTML_SOURCE,
 
-    @Deprecated
-    THUCYDIDES_KEEP_UNSCALED_SCREENSHOTS,
-
     /**
      * If set to true, a copy of the original screenshot will be kept when screenshots are scaled for the reports.
      * False by default to conserve disk space.
      */
-    SERENITY_KEEP_UNSCALED_SCREENSHOTS,
+    THUCYDIDES_KEEP_UNSCALED_SCREENSHOTS,
 
     /**
      * If provided, only classes and/or methods with tags in this list will be executed. The parameter expects
@@ -848,9 +655,6 @@ public enum ThucydidesSystemProperty {
      * If provided, each test in a test run will have these tags added.
      */
     INJECTED_TAGS,
-
-    @Deprecated
-    THUCYDIDES_CSV_EXTRA_COLUMNS,
 
     /**
      * If set to true, historical flags will be displayed in test lists.
@@ -872,19 +676,14 @@ public enum ThucydidesSystemProperty {
     /**
      * Add extra columns to the CSV output, obtained from tag values.
      */
-    SERENITY_CSV_EXTRA_COLUMNS,
-
-    @Deprecated
-    THUCYDIDES_CONSOLE_HEADINGS,
+    THUCYDIDES_CSV_EXTRA_COLUMNS,
 
     /**
      * Write the console headings using ascii-art ("ascii", default value) or in normal text ("normal")
      */
-    SERENITY_CONSOLE_HEADINGS,
+    THUCYDIDES_CONSOLE_HEADINGS,
 
-    @Deprecated
     THUCYDIDES_CONSOLE_COLORS,
-    SERENITY_CONSOLE_COLORS,
 
     /**
      * If set to true, Asciidoc formatting will be supported in the narrative texts.
@@ -973,13 +772,10 @@ public enum ThucydidesSystemProperty {
      */
     SIMPLIFIED_STACK_TRACES,
 
-    @Deprecated
-    THUCYDIDES_DRY_RUN,
-
     /**
      * Run through the steps without actually executing them.
      */
-    SERENITY_DRY_RUN,
+    THUCYDIDES_DRY_RUN,
 
     /**
      * What (human) language are the Cucumber feature files written in?
@@ -1027,14 +823,11 @@ public enum ThucydidesSystemProperty {
      */
     MANUAL_TEST_REPORT_RESULT,
 
-    @Deprecated
-    THUCYDIDES_MAINTAIN_SESSION,
-
     /**
      * Keep the Thucydides session data between tests.
      * Normally, the session data is cleared between tests.
      */
-    SERENITY_MAINTAIN_SESSION,
+    THUCYDIDES_MAINTAIN_SESSION,
 
     /**
      * Path to PhantomJS SSL support

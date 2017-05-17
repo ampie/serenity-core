@@ -112,7 +112,7 @@ public class JUnitXMLConverter {
         }
     }
 
-    private void addFlakyFailureElement(Document doc, TestOutcome outcome, Element testCaseElement,String flakyTestDescription) {
+    private void addFlakyFailureElement(Document doc, TestOutcome outcome, Element testCaseElement, String flakyTestDescription) {
         Node flakyFailureElement = testCaseElement.appendChild(flakyFailureElement(doc, outcome, flakyTestDescription));
         if (outcome.getFlakyTestFailureCause() != null) {
             flakyFailureElement.appendChild(syserrorElement(doc, outcome.getFlakyTestFailureCause().getRootCause()));
@@ -139,7 +139,7 @@ public class JUnitXMLConverter {
         return testCaseElement;
     }
 
-    private Element flakyFailureElement(Document doc, TestOutcome outcome,String flakyTestDescription) {
+    private Element flakyFailureElement(Document doc, TestOutcome outcome, String flakyTestDescription) {
         Element testCaseElement = doc.createElement("flakyFailure");
         addFlakyFailureCause(doc, testCaseElement, outcome.getFlakyTestFailureCause().getRootCause(),flakyTestDescription);
         return testCaseElement;
@@ -155,7 +155,7 @@ public class JUnitXMLConverter {
         }
     }
 
-    private void addFlakyFailureCause(Document doc, Element testCaseElement, FailureCause failureCause,String failureCauseDescription) {
+    private void addFlakyFailureCause(Document doc, Element testCaseElement, FailureCause failureCause, String failureCauseDescription) {
         if ((failureCause != null) && (failureCause.getMessage() != null)) {
             testCaseElement.setAttribute("message", failureCause.getMessage());
             testCaseElement.appendChild(doc.createTextNode(failureCauseDescription));

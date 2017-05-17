@@ -1,7 +1,7 @@
 package net.serenitybdd.junit.runners;
 
 import ch.lambdaj.function.convert.Converter;
-import com.beust.jcommander.internal.Lists;
+//LITE:import com.beust.jcommander.internal.Lists;
 import com.google.common.base.Splitter;
 import net.thucydides.core.guice.Injectors;
 import net.thucydides.core.model.DataTable;
@@ -142,7 +142,7 @@ public class DataDrivenAnnotations {
     @SuppressWarnings("MalformedRegex")
     protected List<String> findTestDataSource() {
         String paths = findTestDataSourcePaths();
-        List<String> validPaths = Lists.newArrayList();
+        List<String> validPaths = new ArrayList<>();
         for (String path : Splitter.on(DATASOURCE_PATH_SEPARATORS).split(paths)) {
             if (CSVTestDataSource.validTestDataPath(path)) {
                 validPaths.add(path);

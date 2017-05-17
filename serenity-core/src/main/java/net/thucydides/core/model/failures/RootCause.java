@@ -1,7 +1,7 @@
 package net.thucydides.core.model.failures;
 
 import net.serenitybdd.core.exceptions.NoException;
-import net.thucydides.core.webdriver.WebdriverAssertionError;
+//LITE: import net.thucydides.core.webdriver.WebdriverAssertionError;
 
 public class RootCause {
 
@@ -10,7 +10,7 @@ public class RootCause {
 
         Class<? extends Throwable> failureCauseClass = testFailureCause.getClass();
 
-        if(WebdriverAssertionError.class.isAssignableFrom(failureCauseClass) && (testFailureCause.getCause() != null)) {
+        if(/*LITE: WebdriverAssertionError.class.isAssignableFrom(failureCauseClass) && */(testFailureCause.getCause() != null)) {
             failureCauseClass = testFailureCause.getCause().getClass();
         }
         return failureCauseClass;

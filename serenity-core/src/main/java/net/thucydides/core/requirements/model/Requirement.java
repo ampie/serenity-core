@@ -53,7 +53,7 @@ public class Requirement implements Comparable {
                  Collections.EMPTY_LIST);
     }
 
-    protected Requirement(String name, String id, String displayName, String cardNumber, String parent, String type,  CustomFieldValue narrative,
+    protected Requirement(String name, String id, String displayName, String cardNumber, String parent, String type, CustomFieldValue narrative,
                           List<Requirement> children, List<Example> examples,
                           List<String> releaseVersions,
                           List<CustomFieldValue> customFields,

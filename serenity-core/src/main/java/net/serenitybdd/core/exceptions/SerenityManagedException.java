@@ -1,7 +1,6 @@
 package net.serenitybdd.core.exceptions;
 
 
-import org.openqa.selenium.WebDriverException;
 
 public class SerenityManagedException extends RuntimeException {
 
@@ -12,9 +11,7 @@ public class SerenityManagedException extends RuntimeException {
 
 
     public static Throwable detachedCopyOf(Throwable testErrorException) {
-        if (!(testErrorException instanceof WebDriverException)) {
-            return testErrorException;
-        } else if (testErrorException instanceof SerenityManagedException) {
+        if (testErrorException instanceof SerenityManagedException) {
             return testErrorException;
         } else {
             return new SerenityManagedException(testErrorException);

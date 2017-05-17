@@ -1,8 +1,6 @@
 package net.thucydides.core.model;
 
-import com.google.common.collect.ImmutableMap;
 import net.thucydides.core.ThucydidesSystemProperty;
-import net.thucydides.core.guice.Injectors;
 import net.thucydides.core.issues.IssueTracking;
 import net.thucydides.core.reports.html.Formatter;
 import net.thucydides.core.util.EnvironmentVariables;

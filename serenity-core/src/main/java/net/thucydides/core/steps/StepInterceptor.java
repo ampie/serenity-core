@@ -9,8 +9,8 @@ import net.serenitybdd.core.Serenity;
 import net.serenitybdd.core.SkipNested;
 import net.serenitybdd.core.environment.ConfiguredEnvironment;
 import net.serenitybdd.core.exceptions.SerenityManagedException;
-import net.sf.cglib.proxy.MethodInterceptor;
-import net.sf.cglib.proxy.MethodProxy;
+import net.serenitybdd.instrumentation.Interceptor;
+import net.serenitybdd.instrumentation.MethodProxy;
 import net.thucydides.core.ThucydidesSystemProperty;
 import net.thucydides.core.annotations.*;
 import net.thucydides.core.model.stacktrace.StackTraceSanitizer;
@@ -27,6 +27,8 @@ import java.util.*;
 
 import static net.thucydides.core.steps.ErrorConvertor.forError;
 
+//LITE: import net.sf.cglib.proxy.MethodInterceptor;
+
 /**
  * Listen to step results and publish notification messages.
  * The step interceptor is designed to work on a given test case or user story.
@@ -34,7 +36,7 @@ import static net.thucydides.core.steps.ErrorConvertor.forError;
  *
  * @author johnsmart
  */
-public class StepInterceptor implements MethodInterceptor, MethodErrorReporter {
+public class StepInterceptor implements Interceptor, MethodErrorReporter {
 
     private final Class<?> testStepClass;
     private Throwable error = null;

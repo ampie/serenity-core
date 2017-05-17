@@ -1,7 +1,6 @@
 package net.thucydides.core.images;
 
 import net.thucydides.core.screenshots.ScreenshotException;
-import org.imgscalr.Scalr;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -10,18 +9,14 @@ import javax.imageio.ImageReader;
 import javax.imageio.stream.FileImageInputStream;
 import javax.imageio.stream.ImageInputStream;
 import java.awt.*;
-import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.nio.file.FileSystemException;
-import java.nio.file.Files;
-import java.nio.file.StandardCopyOption;
 import java.util.Iterator;
-import java.util.concurrent.Callable;
-import java.util.concurrent.TimeUnit;
 
-import static com.jayway.awaitility.Awaitility.await;
+//LITE:import org.imgscalr.Scalr;
 
+//import static com.jayway.awaitility.Awaitility.await;
+//LITE:Vastly reduced due to dependency on AWT
 public class ResizableImage {
 
     private final File screenshotFile;
@@ -99,53 +94,53 @@ public class ResizableImage {
     }
 
     public ResizableImage rescaleCanvas(final int height) throws IOException {
-
-        if (skipRescale(height)) {
-            return this;
-        }
-
-        int targetHeight = Math.min(height, MAX_SUPPORTED_HEIGHT);
-        try {
-            waitForCreationOfFile();
-            return resizeImage(getWidth(), targetHeight, ImageIO.read(screenshotFile));
-        } catch (Throwable e) {
-            getLogger().warn("Could not resize screenshot, so leaving original version: " + screenshotFile, e);
-            return this;
-        }
+        return this;
+//        if (skipRescale(height)) {
+//            return this;
+//        }
+//
+//        int targetHeight = Math.min(height, MAX_SUPPORTED_HEIGHT);
+//        try {
+//            waitForCreationOfFile();
+//            return resizeImage(getWidth(), targetHeight, ImageIO.read(screenshotFile));
+//        } catch (Throwable e) {
+//            getLogger().warn("Could not resize screenshot, so leaving original version: " + screenshotFile, e);
+//            return this;
+//        }
     }
 
-    private void waitForCreationOfFile() {
-        await().atMost(60, TimeUnit.SECONDS).until(screenshotIsProcessed());
-    }
-
-    private Callable<Boolean> screenshotIsProcessed() {
-        return new Callable<Boolean>() {
-            public Boolean call() throws Exception {
-                return (screenshotFile.exists() && screenshotFile.length() > 0);
-            }
-        };
-    }
-
-    protected ResizableImage resizeImage(int width, int targetHeight, BufferedImage image) throws IOException {
-        BufferedImage resizedImage = Scalr.resize(image, Scalr.Method.SPEED,Scalr.Mode.FIT_TO_WIDTH, width, targetHeight, Scalr.OP_ANTIALIAS);
-	    return new ResizedImage(resizedImage, screenshotFile);
-    }
-
-    private boolean skipRescale(int height) {
-        return getHeight() > MAX_SUPPORTED_HEIGHT || (getHeight() >= height);
-    }
-
-    /**
-     * If no resize operation has been done, just copy the file.
-     * Otherwise we should be applying the saveTo() method on the ResizedImage class.
-     */
-    public void saveTo(final File savedFile) throws IOException {
-        if (savedFile.exists()) {
-            return;
-        }
-
-        try {
-            Files.copy(screenshotFile.toPath(), savedFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
-        } catch (FileSystemException fileAlreadyBeingSavedByAnotherThread) {}
-    }
+//private void waitForCreationOfFile() {
+//        await().atMost(60, TimeUnit.SECONDS).until(screenshotIsProcessed());
+//    }
+//
+//    private Callable<Boolean> screenshotIsProcessed() {
+//        return new Callable<Boolean>() {
+//            public Boolean call() throws Exception {
+//                return (screenshotFile.exists() && screenshotFile.length() > 0);
+//            }
+//        };
+//    }
+//
+//    protected ResizableImage resizeImage(int width, int targetHeight, BufferedImage image) throws IOException {
+//        BufferedImage resizedImage = Scalr.resize(image, Scalr.Method.SPEED,Scalr.Mode.FIT_TO_WIDTH, width, targetHeight, Scalr.OP_ANTIALIAS);
+//	    return new ResizedImage(resizedImage, screenshotFile);
+//    }
+//
+//    private boolean skipRescale(int height) {
+//        return getHeight() > MAX_SUPPORTED_HEIGHT || (getHeight() >= height);
+//    }
+//
+//    /**
+//     * If no resize operation has been done, just copy the file.
+//     * Otherwise we should be applying the saveTo() method on the ResizedImage class.
+//     */
+//    public void saveTo(final File savedFile) throws IOException {
+//        if (savedFile.exists()) {
+//            return;
+//        }
+//
+//        try {
+//            Files.copy(screenshotFile.toPath(), savedFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
+//        } catch (FileSystemException fileAlreadyBeingSavedByAnotherThread) {}
+//    }
 }

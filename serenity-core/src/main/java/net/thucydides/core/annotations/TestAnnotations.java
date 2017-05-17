@@ -13,10 +13,11 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import static ch.lambdaj.Lambda.convert;
 import static net.thucydides.core.tags.TagConverters.fromStringValuesToTestTags;
 import static net.thucydides.core.tags.TagConverters.toTestTags;
 import static net.thucydides.core.util.NameConverter.withNoArguments;
+
+import static ch.lambdaj.Lambda.convert;
 
 /**
  * Utility class used to help process annotations on tests and test steps.
@@ -151,7 +152,7 @@ public class TestAnnotations {
     /**
      * Return a list of the issues mentioned in the Issue annotation of this method.
      * @param methodName the name of the test method in the Java test class, if applicable.
-     * returns 
+     * returns
      */
     public Optional<String> getAnnotatedIssueForMethod(String methodName) {
         return getAnnotatedIssue(methodName);
@@ -260,6 +261,7 @@ public class TestAnnotations {
             tags.addAll(convert(tagSet.value(), toTestTags()));
         }
     }
+
 
     private void addTagValues(List<TestTag> tags, WithTagValuesOf tagSet) {
         if (tagSet != null) {

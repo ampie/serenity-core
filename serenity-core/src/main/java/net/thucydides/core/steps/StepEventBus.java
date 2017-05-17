@@ -4,9 +4,9 @@ import com.google.common.base.Optional;
 import com.google.common.base.Preconditions;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Lists;
-import com.google.inject.Inject;
 import net.serenitybdd.core.environment.ConfiguredEnvironment;
 import net.serenitybdd.core.eventbus.Broadcaster;
+import net.thucydides.core.guice.Injectors;
 import net.thucydides.core.ThucydidesSystemProperty;
 import net.thucydides.core.events.TestLifecycleEvents;
 import net.thucydides.core.model.*;
@@ -15,6 +15,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.*;
+
+//LITE:import com.google.inject.Inject;
 
 /**
  * An event bus for Step-related notifications.
@@ -71,7 +73,10 @@ public class StepEventBus {
     private Optional<Boolean> isDryRun = Optional.absent();
 
     private final EnvironmentVariables environmentVariables;
-    @Inject
+    public StepEventBus() {
+        this(Injectors.getInjector().getInstance(EnvironmentVariables .class));
+    }
+    //LITE:@Inject
     public StepEventBus(EnvironmentVariables environmentVariables) {
         this.environmentVariables = environmentVariables;
 
@@ -92,6 +97,9 @@ public class StepEventBus {
     public StepEventBus registerListener(final StepListener listener) {
         if (!registeredListeners.contains(listener)) {
             registeredListeners.add(listener);
+            if(listener==null){
+                System.out.println();
+            }
             if (BaseStepListener.class.isAssignableFrom(listener.getClass())) {
                 baseStepListener = (BaseStepListener) listener;
                 baseStepListener.setEventBus(this);

@@ -3,7 +3,7 @@ package net.thucydides.core.steps;
 
 import net.thucydides.core.model.TestOutcome;
 import net.thucydides.core.model.stacktrace.FailureCause;
-import org.openqa.selenium.WebDriver;
+//LITEimport org.openqa.selenium.WebDriver;
 
 import java.util.List;
 
@@ -20,12 +20,12 @@ public interface StepPublisher {
     /**
      * Used to update the webdriver driver for screenshots if a listener is reused between scenarios.
      */
-    void setDriver(final WebDriver driver);
+    //LITEvoid setDriver(final WebDriver driver);
 
     /**
      * The currently-used WebDriver instance for these tests.
      */
-    WebDriver getDriver();
+    //LITEWebDriver getDriver();
 
     /**
      *  Should return true if a step failure has been logged.

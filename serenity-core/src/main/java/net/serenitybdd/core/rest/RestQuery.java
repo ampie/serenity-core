@@ -7,23 +7,25 @@ import java.util.Map;
 
 public class RestQuery {
 
-    private final RestMethod method;
-    private final String path;
-    private final String content;
-    private final String contentType;
-    private final String requestHeaders;
-    private final String requestCookies;
-    private final String responseHeaders;
-    private final String responseCookies;
+    private RestMethod method;
+    private String path;
+    private String content;
+    private String contentType;
+    private String requestHeaders;
+    private String requestCookies;
+    private String responseHeaders;
+    private String responseCookies;
 
-    private final Optional<? extends List<Object>> parameters;
-    private final Optional<? extends Map<String, ?>> parameterMap;
-    private final String responseBody;
-    private final Integer statusCode;
-
+    private Optional<? extends List<Object>> parameters=Optional.absent();
+    private Optional<? extends Map<String, ?>> parameterMap=Optional.absent();
+    private String responseBody;
+    private Integer statusCode;
+    public RestQuery(){
+    }
     private RestQuery(RestMethod method, String path, List<Object> parameters, Map<String, ?> parameterMap,
                       String content, String contentType, String responseBody, Integer statusCode,
                       String requestHeaders, String requestCookies, String responseHeaders, String responseCookies) {
+        this();
         this.method = method;
         this.path = path;
         this.parameters = Optional.fromNullable(parameters);
@@ -49,7 +51,7 @@ public class RestQuery {
                 requestHeaders, requestCookies, responseHeaders, responseCookies);
     }
 
-    public RestQuery withParameters( Map<String, ?> parameterMap) {
+    public RestQuery withParameters(Map<String, ?> parameterMap) {
         return new RestQuery(method, path, null, parameterMap, content, contentType, responseBody, statusCode,
                 requestHeaders, requestCookies, responseHeaders, responseCookies);
     }

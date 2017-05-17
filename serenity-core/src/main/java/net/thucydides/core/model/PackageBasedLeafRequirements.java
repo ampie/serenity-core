@@ -6,7 +6,6 @@ import net.thucydides.core.requirements.classpath.PathElements;
 import net.thucydides.core.requirements.model.FeatureType;
 import net.thucydides.core.util.EnvironmentVariables;
 
-import static java.lang.Math.min;
 import static net.thucydides.core.ThucydidesSystemProperty.THUCYDIDES_TEST_ROOT;
 
 public class PackageBasedLeafRequirements {
@@ -40,7 +39,7 @@ public class PackageBasedLeafRequirements {
         }
         int requirementsLevel = PathElements.elementsOf(path, rootPackage).size() - 1;
 
-        int effectiveRequirementsLevel = min(requirementsLevel, requirementTypesProvider.getActiveRequirementTypes().size() - 1);
+        int effectiveRequirementsLevel = Math.min(requirementsLevel, requirementTypesProvider.getActiveRequirementTypes().size() - 1);
 
         return requirementTypesProvider.getActiveRequirementTypes().get(effectiveRequirementsLevel);
     }

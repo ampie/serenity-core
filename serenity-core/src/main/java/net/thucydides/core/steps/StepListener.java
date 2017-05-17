@@ -137,7 +137,7 @@ public interface StepListener {
     /**
      * A new example has just started.
      */
-    void exampleStarted(Map<String,String> data);
+    void exampleStarted(Map<String, String> data);
 
     /**
      * An example has finished.

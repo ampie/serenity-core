@@ -1,20 +1,22 @@
 package net.thucydides.core.configuration;
 
 import com.google.common.base.Optional;
-import com.google.inject.Inject;
+import net.thucydides.core.guice.Injectors;
 import net.thucydides.core.ThucydidesSystemProperty;
 import net.thucydides.core.model.TakeScreenshots;
 import net.thucydides.core.steps.FilePathParser;
 import net.thucydides.core.util.EnvironmentVariables;
 import net.thucydides.core.webdriver.Configuration;
-import net.thucydides.core.webdriver.SupportedWebDriver;
-import net.thucydides.core.webdriver.UnsupportedDriverException;
 
 import java.io.File;
 
-import static net.thucydides.core.ThucydidesSystemProperty.*;
-import static net.thucydides.core.webdriver.WebDriverFactory.getDriverFrom;
+import static net.thucydides.core.ThucydidesSystemProperty.THUCYDIDES_TAKE_SCREENSHOTS;
 import static org.apache.commons.lang3.StringUtils.isNotEmpty;
+
+//LITE: import com.google.inject.Inject;
+//LITE: import net.thucydides.core.webdriver.SupportedWebDriver;
+//LITE: import net.thucydides.core.webdriver.UnsupportedDriverException;
+//LITE: import static net.thucydides.core.webdriver.WebDriverFactory.getDriverFrom;
 
 /**
  * Centralized configuration of the test runner. You can configure the output
@@ -71,8 +73,12 @@ public class SystemPropertiesConfiguration implements Configuration {
     private final EnvironmentVariables environmentVariables;
 
     private final FilePathParser filePathParser;
-
-    @Inject
+    //LITE:
+    public SystemPropertiesConfiguration(){
+        this.environmentVariables= Injectors.getInjector().getInstance(EnvironmentVariables.class);
+        filePathParser = new FilePathParser(environmentVariables);
+    }
+    //LITE: @Inject
     public SystemPropertiesConfiguration(EnvironmentVariables environmentVariables) {
         this.environmentVariables = environmentVariables;
         filePathParser = new FilePathParser(environmentVariables);
@@ -96,11 +102,11 @@ public class SystemPropertiesConfiguration implements Configuration {
     /**
      * Get the currently-configured browser type.
      */
-    public SupportedWebDriver getDriverType() {
-
-        String driverType = getDriverFrom(environmentVariables, DEFAULT_WEBDRIVER_DRIVER);
-        return lookupSupportedDriverTypeFor(driverType);
-    }
+//LITE:    public SupportedWebDriver getDriverType() {
+//
+//        String driverType = getDriverFrom(environmentVariables, DEFAULT_WEBDRIVER_DRIVER);
+//        return lookupSupportedDriverTypeFor(driverType);
+//    }
 
     /**
      * Where should the reports go?
@@ -246,29 +252,29 @@ public class SystemPropertiesConfiguration implements Configuration {
      * The default value can be overriden using the webdriver.baseurl property.
      * It is also the base URL used to build relative paths.
      */
-    public String getBaseUrl() {
-        return environmentVariables.getProperty(WEBDRIVER_BASE_URL.getPropertyName(), defaultBaseUrl);
-    }
+//LITE:    public String getBaseUrl() {
+//        return environmentVariables.getProperty(WEBDRIVER_BASE_URL.getPropertyName(), defaultBaseUrl);
+//    }
     /**
      * Transform a driver type into the SupportedWebDriver enum. Driver type can
      * be any case.
      *
      * @throws UnsupportedDriverException
      */
-    private SupportedWebDriver lookupSupportedDriverTypeFor(final String driverType) {
-        SupportedWebDriver driver = null;
-        try {
-            driver = SupportedWebDriver.getDriverTypeFor(driverType);
-        } catch (IllegalArgumentException iae) {
-            throwUnsupportedDriverExceptionFor(driverType);
-        }
-        return driver;
-    }
-
-    private void throwUnsupportedDriverExceptionFor(final String driverType) {
-        throw new UnsupportedDriverException(driverType
-                + " is not a supported browser. Supported driver values are: "
-                + SupportedWebDriver.listOfSupportedDrivers());
-    }
+//LITE    private SupportedWebDriver lookupSupportedDriverTypeFor(final String driverType) {
+//        SupportedWebDriver driver = null;
+//        try {
+//            driver = SupportedWebDriver.getDriverTypeFor(driverType);
+//        } catch (IllegalArgumentException iae) {
+//            throwUnsupportedDriverExceptionFor(driverType);
+//        }
+//        return driver;
+//    }
+//
+//    private void throwUnsupportedDriverExceptionFor(final String driverType) {
+//        throw new UnsupportedDriverException(driverType
+//                + " is not a supported browser. Supported driver values are: "
+//                + SupportedWebDriver.listOfSupportedDrivers());
+//    }
 
 }

@@ -1,0 +1,6 @@
+Principles applied:
+1. No specific instrumentation, i.e. no CGLib, no Lambdaj
+2. No specific dependency injection, i.e. no Google Guice
+3. No dependency on the Pages, PageObjects - requires Selenium and the Screenplay is the future
+4. No dependency on WebDriver specifically Selenium stuff
+5. Freemarker has a dependeency on Swing which rules most of the HTML replorting out

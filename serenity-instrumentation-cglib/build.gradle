@@ -1,0 +1,48 @@
+
+buildscript {
+    repositories {
+        mavenLocal()
+        jcenter()
+        maven {
+            url 'https://geonet.artifactoryonline.com/geonet/public-releases'
+        }
+    }
+}
+
+apply plugin: 'java'
+apply plugin: 'groovy'
+apply plugin: 'eclipse'
+apply plugin: 'idea'
+apply plugin: 'maven'
+apply plugin: 'maven-publish'
+
+sourceCompatibility = 1.7
+targetCompatibility = 1.7
+
+repositories {
+    mavenLocal()
+    jcenter()
+}
+
+
+ext {
+    projectDescription = 'Lightweight support for the Screenplay pattern in Serenity'
+}
+
+dependencies {
+    compile project(':serenity-screenplay')
+    compile('cglib:cglib:3.1'){
+        exclude module: 'asm'
+    }
+//    compile project(':serenity-core')
+    testCompile project(':serenity-junit')
+    testCompile ('org.assertj:assertj-core:1.7.1'){
+        exclude group: 'com.google.guava'
+
+    }
+    testCompile('org.spockframework:spock-core:1.1-groovy-2.4-rc-4') {
+        exclude group: "junit"
+        exclude module: "groovy-all"
+        exclude group: 'com.google.guava'
+    }
+}

@@ -2,8 +2,8 @@ package net.thucydides.core.statistics.service;
 
 import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Sets;
-import net.thucydides.core.ThucydidesSystemProperty;
 import net.thucydides.core.guice.Injectors;
+import net.thucydides.core.ThucydidesSystemProperty;
 import net.thucydides.core.model.Story;
 import net.thucydides.core.model.TestOutcome;
 import net.thucydides.core.model.TestTag;
@@ -12,6 +12,8 @@ import net.thucydides.core.requirements.CoreTagProvider;
 import net.thucydides.core.util.EnvironmentVariables;
 
 import java.util.Set;
+
+//import net.thucydides.core.guice.Injectors;
 
 /**
  * Legacy tag provider that builds tags based on the Feature/Story structure, if the @WithTag annotation is not used.

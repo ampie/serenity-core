@@ -14,7 +14,7 @@ public class ResizedImage extends ResizableImage {
         this.image = image;
     }
 
-    @Override
+//LITE:    @Override
     public void saveTo(final File file) throws IOException {
         ImageIO.write(image, "PNG", file);
     }

@@ -17,6 +17,9 @@ import net.thucydides.core.requirements.ExcludedUnrelatedRequirementTypes;
 import net.thucydides.core.requirements.RequirementsTagProvider;
 import net.thucydides.core.requirements.model.Requirement;
 import net.thucydides.core.util.EnvironmentVariables;
+import org.hamcrest.BaseMatcher;
+import org.hamcrest.Description;
+import org.hamcrest.Matcher;
 
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
@@ -497,7 +500,20 @@ public class RequirementsOutcomes {
     private List<TestOutcome> outcomesForRelease(List<? extends TestOutcome> outcomes,
                                                  String releaseName) {
         releaseManager.enrichOutcomesWithReleaseTags(outcomes);
-        return (List<TestOutcome>) filter(having(on(TestOutcome.class).getVersions(), hasItem(releaseName)), outcomes);
+        return (List<TestOutcome>) filter(hasRelease(releaseName), outcomes);
+    }
+    private Matcher<TestOutcome> hasRelease(final String release){
+        return new BaseMatcher<TestOutcome>() {
+            @Override
+            public boolean matches(Object item) {
+                return ((TestOutcome)item).getVersions().contains(release);
+            }
+
+            @Override
+            public void describeTo(Description description) {
+                description.appendText(" has release " + release);
+            }
+        };
     }
 
     public RequirementsOutcomes withoutUnrelatedRequirements() {

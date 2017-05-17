@@ -22,7 +22,6 @@ import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
 import static java.lang.Math.max;
-import static java.lang.Math.min;
 import static net.thucydides.core.requirements.annotations.ClassInfoAnnotations.theClassDefinedIn;
 import static net.thucydides.core.requirements.classpath.LeafRequirementAdder.addLeafRequirementDefinedIn;
 import static net.thucydides.core.requirements.classpath.NonLeafRequirementsAdder.addParentsOf;
@@ -204,7 +203,7 @@ public class PackageRequirementsTagProvider extends AbstractRequirementsTagProvi
                 maxDepth = pathDepth;
             }
         }
-        return min(maxDepth, requirementsConfiguration.getRequirementTypes().size());
+        return Math.min(maxDepth, requirementsConfiguration.getRequirementTypes().size());
     }
 
     private void addRequirementsDefinedIn(String path, int requirementsDepth, Collection<Requirement> allRequirements) {

@@ -9,6 +9,8 @@ import net.thucydides.core.util.Inflector;
 
 import java.util.List;
 
+//LITE:import net.thucydides.core.guice.Injectors;
+
 public abstract class AbstractRequirementsTagProvider {
 
     protected final EnvironmentVariables environmentVariables;

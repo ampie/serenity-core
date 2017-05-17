@@ -1,6 +1,6 @@
 package net.thucydides.core.reports.saucelabs;
 
-import com.google.inject.Inject;
+import net.thucydides.core.guice.Injectors;
 import net.thucydides.core.ThucydidesSystemProperty;
 import net.thucydides.core.model.TestOutcome;
 import net.thucydides.core.util.EnvironmentVariables;
@@ -21,13 +21,14 @@ public class SaucelabsLinkGenerator implements LinkGenerator {
 
     //no arg constructor for serialization
     public SaucelabsLinkGenerator() {
-    	
+        //LITE:
+        environmentVariables= Injectors.getInjector().getInstance(EnvironmentVariables.class);
     }
     
-    @Inject
-    public SaucelabsLinkGenerator(EnvironmentVariables environmentVariables) {
-        this.environmentVariables = environmentVariables;
-    }
+//LITE:    @Inject
+//    public SaucelabsLinkGenerator(EnvironmentVariables environmentVariables) {
+//        this.environmentVariables = environmentVariables;
+//    }
 
     public String linkFor(TestOutcome testOutcome) {
         if (saucelabsIsNotConfigured()) {

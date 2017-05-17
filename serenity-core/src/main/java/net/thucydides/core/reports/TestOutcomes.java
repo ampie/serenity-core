@@ -1,6 +1,6 @@
 package net.thucydides.core.reports;
 
-import ch.lambdaj.Lambda;
+//LITE: import ch.lambdaj.Lambda;
 import ch.lambdaj.function.convert.Converter;
 import com.google.common.base.Optional;
 import com.google.common.collect.ImmutableList;
@@ -61,9 +61,9 @@ public class TestOutcomes {
 
     static int outcomeCount = 0;
 
-    public <T> T sum(Object iterable, T argument) {
-        return Lambda.sum(iterable, argument);
-    }
+//LITE:    public <T> T sum(Object iterable, T argument) {
+//        return Lambda.sum(iterable, argument);
+//    }
 
     @Inject
     protected TestOutcomes(Collection<? extends TestOutcome> outcomes,
@@ -239,7 +239,10 @@ new HashMap<>();
         for (TestOutcome outcome : outcomes) {
             addTagNamesFrom(outcome, tags);
         }
-        return sort(ImmutableList.copyOf(tags), on(String.class));
+        List<String> result =new ArrayList<>(tags);
+        Collections.sort(result);
+        return ImmutableList.copyOf(result);
+        //LITE:return sort(ImmutableList.copyOf(tags), on(String.class));
     }
 
     private void addTagNamesFrom(TestOutcome outcome, Set<String> tags) {
@@ -372,7 +375,14 @@ new HashMap<>();
     }
 
     public DateTime getStartTime() {
-        return min(outcomes, on(TestOutcome.class).getStartTime());
+        DateTime result = null;
+        for (TestOutcome outcome : outcomes) {
+            if(result==null || outcome.getStartTime().compareTo(result)<0){
+                result=outcome.getStartTime();
+            }
+        }
+        return result;
+        //LITE:return min(outcomes, on(TestOutcome.class).getStartTime());
     }
 
     public TestOutcomes ofType(TestType testType) {
@@ -579,7 +589,17 @@ new HashMap<>();
      * @return The list of TestOutcomes contained in this test outcome set.
      */
     public List<? extends TestOutcome> getTests() {
-        return sort(outcomes, on(TestOutcome.class).getTitle());
+        return sort(outcomes, ontTitle());
+//LITE:        return sort(outcomes, on(TestOutcome.class).getTitle());
+    }
+
+    private Comparator<TestOutcome> ontTitle() {
+        return new Comparator<TestOutcome>() {
+            @Override
+            public int compare(TestOutcome o1, TestOutcome o2) {
+                return o1.getTitle().compareTo(o2.getTitle());
+            }
+        };
     }
 
     /**
@@ -634,7 +654,8 @@ new HashMap<>();
         return convert(outcomes, toTestResults());
     }
 
-    private Converter<? extends TestOutcome, TestResult> toTestResults() {
+
+    private Converter<TestOutcome, TestResult> toTestResults() {
         return new Converter<TestOutcome, TestResult>() {
             public TestResult convert(final TestOutcome step) {
                 return step.getResult();
@@ -658,7 +679,12 @@ new HashMap<>();
      * @param testType 'manual' or 'automated' (this is a string because it is mainly called from the freemarker templates
      */
     public int successCount(String testType) {
-        return sum(outcomes, on(TestOutcome.class).countResults(SUCCESS, TestType.valueOf(testType.toUpperCase())));
+        int count = 0;
+        for (TestOutcome outcome : outcomes) {
+            count += outcome.countResults(SUCCESS, TestType.valueOf(testType.toUpperCase()));
+        }
+        return count;
+        //LITE: return sum(outcomes, on(TestOutcome.class).countResults(SUCCESS, TestType.valueOf(testType.toUpperCase())));
     }
 
 
@@ -951,4 +977,6 @@ new HashMap<>();
             return false;
         }
     }
+
+
 }

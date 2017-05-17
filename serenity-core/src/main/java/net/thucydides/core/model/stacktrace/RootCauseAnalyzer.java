@@ -4,7 +4,7 @@ import net.serenitybdd.core.environment.ConfiguredEnvironment;
 import net.serenitybdd.core.exceptions.SerenityManagedException;
 import net.thucydides.core.model.failures.FailureAnalysis;
 import net.thucydides.core.util.EnvironmentVariables;
-import net.thucydides.core.webdriver.WebdriverAssertionError;
+//LITE:import net.thucydides.core.webdriver.WebdriverAssertionError;
 
 /**
  * Created by john on 3/07/2014.
@@ -30,7 +30,7 @@ public class RootCauseAnalyzer {
 
     private Throwable originalExceptionFrom(Throwable thrownException) {
 
-        if (!(thrownException instanceof WebdriverAssertionError) && ((thrownException instanceof SerenityManagedException) || (thrownException instanceof AssertionError))){
+        if (/*LITE: !(thrownException instanceof WebdriverAssertionError) && */((thrownException instanceof SerenityManagedException) || (thrownException instanceof AssertionError))){
             return thrownException;
         }
         if (failureAnalysis.reportAsError(thrownException.getClass())) {

@@ -7,17 +7,17 @@ import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Lists;
 import com.google.inject.Injector;
 import net.serenitybdd.core.PendingStepException;
-import net.serenitybdd.core.photography.Darkroom;
-import net.serenitybdd.core.photography.Photographer;
+//LITE:import net.serenitybdd.core.photography.Darkroom;
+//LITE:import net.serenitybdd.core.photography.Photographer;
 import net.serenitybdd.core.photography.ScreenshotPhoto;
-import net.serenitybdd.core.photography.SoundEngineer;
-import net.serenitybdd.core.photography.bluring.AnnotatedBluring;
+//LITE:import net.serenitybdd.core.photography.SoundEngineer;
+//LITE:import net.serenitybdd.core.photography.bluring.AnnotatedBluring;
 import net.serenitybdd.core.rest.RestQuery;
 import net.serenitybdd.core.time.SystemClock;
 import net.thucydides.core.ThucydidesSystemProperty;
 import net.thucydides.core.annotations.TestAnnotations;
 import net.thucydides.core.guice.Injectors;
-import net.thucydides.core.junit.SerenityJUnitTestCase;
+//LITE:import net.thucydides.core.junit.SerenityJUnitTestCase;
 import net.thucydides.core.model.*;
 import net.thucydides.core.model.failures.FailureAnalysis;
 import net.thucydides.core.model.screenshots.ScreenshotPermission;
@@ -26,8 +26,8 @@ import net.thucydides.core.pages.Pages;
 import net.thucydides.core.screenshots.ScreenshotAndHtmlSource;
 import net.thucydides.core.screenshots.ScreenshotException;
 import net.thucydides.core.webdriver.*;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.remote.SessionId;
+//LITE:import org.openqa.selenium.WebDriver;
+//LITE:import org.openqa.selenium.remote.SessionId;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -37,7 +37,7 @@ import java.nio.file.Path;
 import java.util.*;
 
 import static ch.lambdaj.Lambda.convert;
-import static net.serenitybdd.core.webdriver.configuration.RestartBrowserForEach.*;
+//LITE:import static net.serenitybdd.core.webdriver.configuration.RestartBrowserForEach.*;
 import static net.thucydides.core.model.Stories.findStoryFrom;
 import static net.thucydides.core.model.TestResult.*;
 import static net.thucydides.core.steps.BaseStepListener.ScreenshotType.MANDATORY_SCREENSHOT;
@@ -80,11 +80,11 @@ public class BaseStepListener implements StepListener, StepPublisher {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(BaseStepListener.class);
 
-    private WebDriver driver;
+    //LITE:private WebDriver driver;
 
     private File outputDirectory;
 
-    private WebdriverProxyFactory proxyFactory;
+    //LITE:private WebdriverProxyFactory proxyFactory;
 
     private Story testedStory;
 
@@ -94,11 +94,13 @@ public class BaseStepListener implements StepListener, StepPublisher {
 
     private List<TestTag> storywideTags;
 
-    private Darkroom darkroom;
-    private Photographer photographer;
-    private SoundEngineer soundEngineer = new SoundEngineer();
+    //LITE:private Darkroom darkroom;
+    //LITE:private Photographer photographer;
+    //LITE:private SoundEngineer soundEngineer = new SoundEngineer();
 
-    private final CloseBrowser closeBrowsers;
+    //LITE:private final CloseBrowser closeBrowsers;
+    private Long currentStepDuration;
+    private Long currentTestDuration;
 
     public void setEventBus(StepEventBus eventBus) {
         this.eventBus = eventBus;
@@ -111,12 +113,12 @@ public class BaseStepListener implements StepListener, StepPublisher {
         return eventBus;
     }
 
-    private Darkroom getDarkroom() {
-        if (darkroom == null) {
-            darkroom = new Darkroom();
-        }
-        return darkroom;
-    }
+//LITE:    private Darkroom getDarkroom() {
+//        if (darkroom == null) {
+//            darkroom = new Darkroom();
+//        }
+//        return darkroom;
+//    }
 
     public Optional<TestStep> cloneCurrentStep() {
         return (Optional<TestStep>) ((currentStepExists()) ? Optional.of(getCurrentStep().clone()) : Optional.absent());
@@ -155,12 +157,12 @@ public class BaseStepListener implements StepListener, StepPublisher {
         getCurrentTestOutcome().updateOverallResults();
     }
 
-    public Photographer getPhotographer() {
-        if (photographer == null) {
-            photographer = new Photographer(getDarkroom());
-        }
-        return photographer;
-    }
+//LITE:    public Photographer getPhotographer() {
+//        if (photographer == null) {
+//            photographer = new Photographer(getDarkroom());
+//        }
+//        return photographer;
+//    }
 
     public void cancelPreviousTest() {
         synchronized (testOutcomes) {
@@ -219,7 +221,7 @@ public class BaseStepListener implements StepListener, StepPublisher {
     }
 
     public BaseStepListener(final File outputDirectory, Injector injector) {
-        this.proxyFactory = WebdriverProxyFactory.getFactory();
+        //LITE:this.proxyFactory = WebdriverProxyFactory.getFactory();
         this.testOutcomes = Lists.newArrayList();
         this.currentStepStack = new Stack<>();
         this.currentGroupStack = new Stack<>();
@@ -230,50 +232,50 @@ public class BaseStepListener implements StepListener, StepPublisher {
         this.clock = injector.getInstance(SystemClock.class);
         this.configuration = injector.getInstance(Configuration.class);
         //this.screenshotProcessor = injector.getInstance(ScreenshotProcessor.class);
-        this.closeBrowsers = Injectors.getInjector().getInstance(CloseBrowser.class);
+        //LITE:this.closeBrowsers = Injectors.getInjector().getInstance(CloseBrowser.class);
 
     }
-
-    /**
-     * Create a step listener with a given web driver type.
-     *
-     * @param driverClass     a driver of this type will be used
-     * @param outputDirectory reports and screenshots are generated here
-     */
-    public BaseStepListener(final Class<? extends WebDriver> driverClass, final File outputDirectory) {
-        this(outputDirectory);
-        this.driver = getProxyFactory().proxyFor(driverClass);
-    }
-
-    public BaseStepListener(final Class<? extends WebDriver> driverClass,
-                            final File outputDirectory,
-                            final Configuration configuration) {
-        this(driverClass, outputDirectory);
-        this.configuration = configuration;
-    }
-
-    public BaseStepListener(final File outputDirectory,
-                            final WebdriverManager webdriverManager) {
-        this(outputDirectory);
-        //this.webdriverManager = webdriverManager;
-    }
-
-    /**
-     * Create a step listener using the driver from a given page factory.
-     * If the pages factory is null, a new driver will be created based on the default system values.
-     *
-     * @param outputDirectory reports and screenshots are generated here
-     * @param pages           a pages factory.
-     */
-    public BaseStepListener(final File outputDirectory, final Pages pages) {
-        this(outputDirectory);
-        if (pages != null) {
-            setDriverUsingPagesDriverIfDefined(pages);
-        } else {
-            createNewDriver();
-        }
-    }
-
+//LITE:
+//    /**
+//     * Create a step listener with a given web driver type.
+//     *
+//     * @param driverClass     a driver of this type will be used
+//     * @param outputDirectory reports and screenshots are generated here
+//     */
+//    public BaseStepListener(final Class<? extends WebDriver> driverClass, final File outputDirectory) {
+//        this(outputDirectory);
+//        this.driver = getProxyFactory().proxyFor(driverClass);
+//    }
+//
+//    public BaseStepListener(final Class<? extends WebDriver> driverClass,
+//                            final File outputDirectory,
+//                            final Configuration configuration) {
+//        this(driverClass, outputDirectory);
+//        this.configuration = configuration;
+//    }
+//
+//    public BaseStepListener(final File outputDirectory,
+//                            final WebdriverManager webdriverManager) {
+//        this(outputDirectory);
+//        //this.webdriverManager = webdriverManager;
+//    }
+//
+//    /**
+//     * Create a step listener using the driver from a given page factory.
+//     * If the pages factory is null, a new driver will be created based on the default system values.
+//     *
+//     * @param outputDirectory reports and screenshots are generated here
+//     * @param pages           a pages factory.
+//     */
+//    public BaseStepListener(final File outputDirectory, final Pages pages) {
+//        this(outputDirectory);
+//        if (pages != null) {
+//            setDriverUsingPagesDriverIfDefined(pages);
+//        } else {
+//            createNewDriver();
+//        }
+//    }
+//
     protected ScreenshotPermission screenshots() {
         if (screenshots == null) {
             screenshots = new ScreenshotPermission(configuration);
@@ -281,22 +283,29 @@ public class BaseStepListener implements StepListener, StepPublisher {
         return screenshots;
     }
 
-    private void createNewDriver() {
-        setDriver(getProxyFactory().proxyDriver());
+//LITE:    private void createNewDriver() {
+//        setDriver(getProxyFactory().proxyDriver());
+//    }
+//
+//    private void setDriverUsingPagesDriverIfDefined(final Pages pages) {
+//        if (pages.getDriver() == null) {
+//            ThucydidesWebDriverSupport.initialize();
+//            ThucydidesWebDriverSupport.useDriver(getDriver());
+//            pages.setDriver(getDriver());
+//        }
+//    }
+//
+//    protected WebdriverProxyFactory getProxyFactory() {
+//        return proxyFactory;
+//    }
+
+    public void recordStepDuration(Long duration){
+        this.currentStepDuration = duration;
     }
 
-    private void setDriverUsingPagesDriverIfDefined(final Pages pages) {
-        if (pages.getDriver() == null) {
-            ThucydidesWebDriverSupport.initialize();
-            ThucydidesWebDriverSupport.useDriver(getDriver());
-            pages.setDriver(getDriver());
-        }
+    public void recordTestDuration(Long duration){
+        this.currentTestDuration = duration;
     }
-
-    protected WebdriverProxyFactory getProxyFactory() {
-        return proxyFactory;
-    }
-
     protected TestOutcome getCurrentTestOutcome() {
         return latestTestOutcome().get();
     }
@@ -352,18 +361,18 @@ public class BaseStepListener implements StepListener, StepPublisher {
         storywideTags.addAll(tags);
     }
 
-    private void closeDarkroom() {
-        if (darkroom != null) {
-            darkroom.waitUntilClose();
-        }
-
-    }
+//LITE:    private void closeDarkroom() {
+//        if (darkroom != null) {
+//            darkroom.waitUntilClose();
+//        }
+//
+//    }
 
     public void testSuiteFinished() {
-        closeDarkroom();
+        //LITE:closeDarkroom();
         clearStorywideTagsAndIssues();
 
-        closeBrowsers.forTestSuite(testSuite).closeIfConfiguredForANew(STORY);
+        //LITE:closeBrowsers.forTestSuite(testSuite).closeIfConfiguredForANew(STORY);
 
         suiteStarted = false;
     }
@@ -391,10 +400,10 @@ public class BaseStepListener implements StepListener, StepPublisher {
     }
 
     private void updateSessionIdIfKnown() {
-        SessionId sessionId = ThucydidesWebDriverSupport.getSessionId();
-        if (sessionId != null) {
-            getCurrentTestOutcome().setSessionId(sessionId.toString());
-        }
+//LITE:        SessionId sessionId = ThucydidesWebDriverSupport.getSessionId();
+//        if (sessionId != null) {
+//            getCurrentTestOutcome().setSessionId(sessionId.toString());
+//        }
     }
 
     public StepMutator updateCurrentStepTitle(String updatedStepTitle) {
@@ -446,11 +455,11 @@ public class BaseStepListener implements StepListener, StepPublisher {
             testAndTopLevelStepsShouldBeIgnored();
         }
 
-        if (currentTestIsABrowserTest()) {
-            getCurrentTestOutcome().setDriver(getDriverUsedInThisTest());
-            updateSessionIdIfKnown();
-            closeBrowsers.forTestSuite(testSuite).closeIfConfiguredForANew(SCENARIO);
-        }
+//LITE:        if (currentTestIsABrowserTest()) {
+//            getCurrentTestOutcome().setDriver(getDriverUsedInThisTest());
+//            updateSessionIdIfKnown();
+//            closeBrowsers.forTestSuite(testSuite).closeIfConfiguredForANew(SCENARIO);
+//        }
         currentStepStack.clear();
     }
 
@@ -463,14 +472,14 @@ public class BaseStepListener implements StepListener, StepPublisher {
     }
 
 
-    private String getDriverUsedInThisTest() {
-        return ThucydidesWebDriverSupport.getDriversUsed();
-    }
+// LITE:   private String getDriverUsedInThisTest() {
+//        return ThucydidesWebDriverSupport.getDriversUsed();
+//    }
 
-    private boolean currentTestIsABrowserTest() {
-        return SerenityJUnitTestCase.inClass(testSuite).isAWebTest()
-                || (testSuite == null && ThucydidesWebDriverSupport.isDriverInstantiated());
-    }
+// LITE:   private boolean currentTestIsABrowserTest() {
+//        return SerenityJUnitTestCase.inClass(testSuite).isAWebTest()
+//                || (testSuite == null && ThucydidesWebDriverSupport.isDriverInstantiated());
+//    }
 
     public void testRetried() {
         currentStepStack.clear();
@@ -479,7 +488,12 @@ public class BaseStepListener implements StepListener, StepPublisher {
 
     private void recordTestDuration() {
         if (!testOutcomes.isEmpty()) {
-            getCurrentTestOutcome().recordDuration();
+            if(currentTestDuration == null) {
+                getCurrentTestOutcome().recordDuration();
+            }else{
+                getCurrentTestOutcome().setDuration(currentTestDuration);
+                currentTestDuration = null;
+            }
         }
     }
 
@@ -492,7 +506,7 @@ public class BaseStepListener implements StepListener, StepPublisher {
     public void stepStarted(final ExecutedStepDescription description) {
         pushStepMethodIn(description);
         recordStep(description);
-        if (currentTestIsABrowserTest() && browserIsOpen()) {
+        if (false/*LITE:currentTestIsABrowserTest() && browserIsOpen()*/) {
             takeInitialScreenshot();
         }
     }
@@ -690,7 +704,7 @@ public class BaseStepListener implements StepListener, StepPublisher {
 
     @Override
     public void testRunFinished() {
-        closeDarkroom();
+        //LITE:closeDarkroom();
     }
 
     private void currentStepDone(TestResult result) {
@@ -699,7 +713,12 @@ public class BaseStepListener implements StepListener, StepPublisher {
         }
         if (currentStepExists()) {
             TestStep finishedStep = currentStepStack.pop();
-            finishedStep.recordDuration();
+            if(this.currentStepDuration == null) {
+                finishedStep.recordDuration();
+            }else{
+                finishedStep.setDuration(currentStepDuration);
+                currentStepDuration = null;
+            }
             if (result != null) {
                 finishedStep.setResult(result);
             }
@@ -715,7 +734,7 @@ public class BaseStepListener implements StepListener, StepPublisher {
     }
 
     private void takeEndOfStepScreenshotFor(final TestResult result) {
-        if (currentTestIsABrowserTest() && shouldTakeEndOfStepScreenshotFor(result)) {
+        if (/*LITE:currentTestIsABrowserTest() && */shouldTakeEndOfStepScreenshotFor(result)) {
             take(MANDATORY_SCREENSHOT, result);
         }
     }
@@ -752,7 +771,7 @@ public class BaseStepListener implements StepListener, StepPublisher {
         }
 
         return (currentStepExists()
-                && browserIsOpen()
+//LITE                && browserIsOpen()
                 && !StepEventBus.getEventBus().isDryRun()
                 && !StepEventBus.getEventBus().currentTestIsSuspended());
     }
@@ -811,10 +830,10 @@ public class BaseStepListener implements StepListener, StepPublisher {
         }
     }
 
-    private boolean browserIsOpen() {
-        return ThucydidesWebDriverSupport.isDriverInstantiated();
-    }
-
+//LITE:    private boolean browserIsOpen() {
+//        return ThucydidesWebDriverSupport.isDriverInstantiated();
+//    }
+//
     private void takeInitialScreenshot() {
         if ((currentStepExists()) && (screenshots().areAllowed(TakeScreenshots.BEFORE_AND_AFTER_EACH_STEP))) {
             take(OPTIONAL_SCREENSHOT);
@@ -827,14 +846,14 @@ public class BaseStepListener implements StepListener, StepPublisher {
         Optional<File> pageSource = Optional.absent();
 
         if (pathOf(outputDirectory) != null) { // Output directory may be null for some tests
-            newPhoto = getPhotographer().takesAScreenshot()
-                    .with(getDriver())
-                    .andWithBlurring(AnnotatedBluring.blurLevel())
-                    .andSaveToDirectory(pathOf(outputDirectory));
-
-            pageSource = soundEngineer.ifRequiredForResult(result)
-                    .recordPageSourceUsing(getDriver())
-                    .intoDirectory(pathOf(outputDirectory));
+//LITE:            newPhoto = getPhotographer().takesAScreenshot()
+//                    .with(getDriver())
+//                    .andWithBlurring(AnnotatedBluring.blurLevel())
+//                    .andSaveToDirectory(pathOf(outputDirectory));
+//
+//            pageSource = soundEngineer.ifRequiredForResult(result)
+//                    .recordPageSourceUsing(getDriver())
+//                    .intoDirectory(pathOf(outputDirectory));
 
         }
         return (newPhoto == ScreenshotPhoto.None) ?
@@ -870,14 +889,14 @@ public class BaseStepListener implements StepListener, StepPublisher {
         };
     }
 
-
-    public void setDriver(final WebDriver driver) {
-        this.driver = driver;
-    }
-
-    public WebDriver getDriver() {
-        return ThucydidesWebDriverSupport.getDriver();
-    }
+// LITE:
+//    public void setDriver(final WebDriver driver) {
+//        this.driver = driver;
+//    }
+//
+//    public WebDriver getDriver() {
+//        return ThucydidesWebDriverSupport.getDriver();
+//    }
 
     public boolean aStepHasFailed() {
         return ((!getTestOutcomes().isEmpty()) &&
@@ -946,7 +965,7 @@ public class BaseStepListener implements StepListener, StepPublisher {
     }
 
     public void notifyScreenChange() {
-        if (currentTestIsABrowserTest() && screenshots().areAllowed(TakeScreenshots.FOR_EACH_ACTION)) {
+        if (/*LITE:currentTestIsABrowserTest() && */screenshots().areAllowed(TakeScreenshots.FOR_EACH_ACTION)) {
             take(OPTIONAL_SCREENSHOT);
         }
     }
@@ -1000,7 +1019,7 @@ public class BaseStepListener implements StepListener, StepPublisher {
         if (latestTestOutcome().isPresent()) {
             latestTestOutcome().get().moveToNextRow();
         }
-        closeBrowsers.forTestSuite(testSuite).closeIfConfiguredForANew(EXAMPLE);
+        //LITE:closeBrowsers.forTestSuite(testSuite).closeIfConfiguredForANew(EXAMPLE);
     }
 
     private boolean newStepForEachExample() {

@@ -2,9 +2,10 @@ package net.thucydides.core.statistics.service;
 
 
 import com.google.common.collect.ImmutableSet;
-import net.thucydides.core.requirements.FileSystemRequirementsTagProvider;
 import net.thucydides.core.requirements.PackageRequirementsTagProvider;
 import net.thucydides.core.steps.StepEventBus;
+
+//LITE: import net.thucydides.core.requirements.FileSystemRequirementsTagProvider;
 
 
 public class JUnitTagProviderStrategy implements TagProviderStrategy {
@@ -19,7 +20,7 @@ public class JUnitTagProviderStrategy implements TagProviderStrategy {
         return ImmutableSet.of(
                 new PackageRequirementsTagProvider(),
                 new AnnotationBasedTagProvider(),
-                new FileSystemRequirementsTagProvider(),
+//LITE:TODO                new FileSystemRequirementsTagProvider(),
                 new FeatureStoryTagProvider(),
                 new InjectedTagProvider(),
                 new ContextTagProvider()

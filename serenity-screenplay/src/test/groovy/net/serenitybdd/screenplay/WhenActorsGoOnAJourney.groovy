@@ -1,6 +1,6 @@
 package net.serenitybdd.screenplay
 import net.serenitybdd.screenplay.shopping.DanaGoesShoppingSample
-import net.serenitybdd.junit.runners.SerenityRunner
+//import net.serenitybdd.junit.runners.SerenityRunner
 import net.serenitybdd.screenplay.shopping.tasks.ATaskWithParameters
 import net.thucydides.core.model.TestResult
 import org.junit.runner.notification.RunNotifier

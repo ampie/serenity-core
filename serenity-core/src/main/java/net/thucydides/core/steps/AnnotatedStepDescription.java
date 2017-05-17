@@ -3,15 +3,14 @@ package net.thucydides.core.steps;
 import com.google.common.base.Joiner;
 import com.google.common.base.Optional;
 import com.google.common.collect.ImmutableList;
-import com.google.common.collect.Lists;
-import net.thucydides.core.annotations.*;
+import net.thucydides.core.annotations.Step;
+import net.thucydides.core.annotations.StepGroup;
+import net.thucydides.core.annotations.Title;
 import net.thucydides.core.reflection.MethodFinder;
 import org.apache.commons.lang3.StringUtils;
-import org.openqa.selenium.Keys;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
@@ -35,31 +34,6 @@ public final class AnnotatedStepDescription {
 
     private AnnotatedStepDescription(final ExecutedStepDescription description) {
         this.description = description;
-    }
-
-    public List<String> getAnnotatedRequirements() {
-        List<String> requirements = new ArrayList<String>();
-        Method testMethod = getTestMethod();
-        if (testMethod != null) {
-            addRequirementFrom(requirements, testMethod);
-            addMultipleRequirementsFrom(requirements, testMethod);
-        }
-        return requirements;
-    }
-
-    private void addMultipleRequirementsFrom(final List<String> requirements, final Method testMethod) {
-        TestsRequirements testRequirements = testMethod.getAnnotation(TestsRequirements.class);
-        if (testRequirements != null) {
-            requirements.addAll(Arrays.asList(testRequirements.value()));
-        }
-    }
-
-    private void addRequirementFrom(final List<String> requirements, final Method testMethod) {
-        TestsRequirement testsRequirement = testMethod
-                .getAnnotation(TestsRequirement.class);
-        if (testsRequirement != null) {
-            requirements.add(testsRequirement.value());
-        }
     }
 
     public Method getTestMethod() {
@@ -186,22 +160,12 @@ public final class AnnotatedStepDescription {
 
         private String stringValueFor(Object value) {
 
-            if (value instanceof Keys[]) {
-                return keyNamesFor((Keys[]) value);
-            }
             if (value.getClass().isArray()) {
                 return Joiner.on(",").join(Arrays.asList(value));
             }
             return value.toString();
         }
 
-        private String keyNamesFor(Keys[] keyValues) {
-            List<String> keyNames = Lists.newArrayList();
-            for(Keys keyValue: keyValues) {
-                keyNames.add((keyValue.name()));
-            }
-            return Joiner.on(",").join(keyNames);
-        }
 
         private void allStepDefinitionFieldsShouldBeResolvedIn(String stepDescription) {
             Map<String, Object> fields = description.getDisplayedFields();

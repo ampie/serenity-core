@@ -1,5 +1,7 @@
 package net.thucydides.core.model;
 
+//LITE:import ch.lambdaj.function.convert.Converter;
+
 import ch.lambdaj.function.convert.Converter;
 import com.google.common.base.Joiner;
 import com.google.common.base.Optional;
@@ -8,20 +10,17 @@ import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
-import jnr.x86asm.OP;
 import net.serenitybdd.core.environment.ConfiguredEnvironment;
 import net.serenitybdd.core.exceptions.SerenityManagedException;
 import net.serenitybdd.core.model.FailureDetails;
 import net.serenitybdd.core.time.SystemClock;
+import net.thucydides.core.guice.Injectors;
 import net.thucydides.core.ThucydidesSystemProperty;
 import net.thucydides.core.annotations.TestAnnotations;
-import net.thucydides.core.guice.Injectors;
 import net.thucydides.core.images.ResizableImage;
 import net.thucydides.core.issues.IssueTracking;
 import net.thucydides.core.model.failures.FailureAnalysis;
 import net.thucydides.core.model.features.ApplicationFeature;
-import net.thucydides.core.model.flags.Flag;
-import net.thucydides.core.model.flags.FlagProvider;
 import net.thucydides.core.model.results.MergeStepResultStrategy;
 import net.thucydides.core.model.results.StepResultMergeStragegy;
 import net.thucydides.core.model.screenshots.Screenshot;
@@ -37,22 +36,18 @@ import net.thucydides.core.steps.StepFailure;
 import net.thucydides.core.steps.StepFailureException;
 import net.thucydides.core.steps.TestFailureCause;
 import net.thucydides.core.util.EnvironmentVariables;
-import net.thucydides.core.util.Inflector;
 import net.thucydides.core.util.NameConverter;
-import org.apache.commons.io.output.ByteArrayOutputStream;
 import org.apache.commons.lang3.StringUtils;
 import org.joda.time.DateTime;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.validation.constraints.NotNull;
 import java.io.File;
 import java.io.IOException;
 import java.nio.charset.Charset;
 import java.util.*;
 import java.util.regex.Pattern;
 
-import static ch.lambdaj.Lambda.*;
 import static com.google.common.base.Preconditions.*;
 import static com.google.common.collect.Lists.partition;
 import static com.google.common.collect.Lists.reverse;
@@ -61,7 +56,14 @@ import static net.thucydides.core.model.ReportType.ROOT;
 import static net.thucydides.core.model.TestResult.*;
 import static net.thucydides.core.util.NameConverter.withNoArguments;
 import static org.apache.commons.lang3.StringUtils.isNotBlank;
-import static org.hamcrest.Matchers.is;
+import static org.apache.commons.lang3.StringUtils.join;
+
+
+import net.thucydides.core.model.flags.Flag;
+import net.thucydides.core.model.flags.FlagProvider;
+import org.apache.commons.io.output.ByteArrayOutputStream;
+//LITE:import javax.validation.constraints.NotNull;
+import static ch.lambdaj.Lambda.*;
 
 /**
  * Represents the results of a test (or "scenario") execution. This
@@ -83,7 +85,7 @@ public class TestOutcome {
     /**
      * The name of the method implementing this test.
      */
-    @NotNull
+    //LITE:@NotNull
     private String name;
 
     /**
@@ -246,8 +248,8 @@ public class TestOutcome {
         this.additionalIssues = Lists.newArrayList();
         this.additionalVersions = Lists.newArrayList();
         this.issueTracking = Injectors.getInjector().getInstance(IssueTracking.class);
-        this.linkGenerator = Injectors.getInjector().getInstance(LinkGenerator.class);
-        this.flagProvider = Injectors.getInjector().getInstance(FlagProvider.class);
+//LITE:        this.linkGenerator = Injectors.getInjector().getInstance(LinkGenerator.class);
+//LITE:        this.flagProvider = Injectors.getInjector().getInstance(FlagProvider.class);
         this.qualifier = Optional.absent();
         this.context = null;
         this.groupStack = new Stack<>();
@@ -297,7 +299,7 @@ public class TestOutcome {
         this.additionalVersions = Lists.newArrayList();
         this.issueTracking = Injectors.getInjector().getInstance(IssueTracking.class);
         this.linkGenerator = Injectors.getInjector().getInstance(LinkGenerator.class);
-        this.flagProvider = Injectors.getInjector().getInstance(FlagProvider.class);
+//        this.flagProvider = Injectors.getInjector().getInstance(FlagProvider.class);
         this.qualifier = Optional.absent();
         this.environmentVariables = environmentVariables;
         this.context = contextFrom(environmentVariables);
@@ -409,7 +411,7 @@ public class TestOutcome {
         }
         this.issueTracking = Injectors.getInjector().getInstance(IssueTracking.class);
         this.linkGenerator = Injectors.getInjector().getInstance(LinkGenerator.class);
-        this.flagProvider = Injectors.getInjector().getInstance(FlagProvider.class);
+        //LITE:this.flagProvider = Injectors.getInjector().getInstance(FlagProvider.class);
         this.environmentVariables = environmentVariables;
         this.context = contextFrom(environmentVariables);
 
@@ -493,7 +495,7 @@ public class TestOutcome {
         this.dataTable = dataTable;
         this.issueTracking = Injectors.getInjector().getInstance(IssueTracking.class);
         this.linkGenerator = Injectors.getInjector().getInstance(LinkGenerator.class);
-        this.flagProvider = Injectors.getInjector().getInstance(FlagProvider.class);
+        //LITE:this.flagProvider = Injectors.getInjector().getInstance(FlagProvider.class);
         this.driver = driver;
         this.manual = manualTest;
         this.projectKey = projectKey;
@@ -652,7 +654,7 @@ public class TestOutcome {
 
     @Override
     public String toString() {
-        return getTitle() + ":" + join(extract(testSteps, on(TestStep.class).toString()));
+        return getTitle() + ":" + testSteps.toString(); //LITE:join(extract(testSteps, on(TestStep.class).toString()));
     }
 
     /**
@@ -952,12 +954,11 @@ public class TestOutcome {
         }
 
     }
-
     public String toJson() {
         JSONConverter jsonConverter = Injectors.getInjector().getInstance(JSONConverter.class);
         try (ByteArrayOutputStream outputStream = new ByteArrayOutputStream()) {
             jsonConverter.toJson(this, outputStream);
-            return outputStream.toString(Charset.defaultCharset());
+            return outputStream.toString(Charset.defaultCharset().toString());
         } catch (IOException e) {
             LOGGER.error("serialization error for testOutcome with name \"" + this.getName() + "\"", e);
             return "";
@@ -1066,8 +1067,13 @@ public class TestOutcome {
         List<TestStep> testStepsWithScreenshots = getFlattenedTestSteps();
 //                select(getFlattenedTestSteps(),
 //                having(on(TestStep.class).needsScreenshots()));
-
-        return flatten(extract(testStepsWithScreenshots, on(TestStep.class).getScreenshots()));
+//LITE:
+        List<ScreenshotAndHtmlSource> result = new ArrayList<>();
+        for (TestStep testStepsWithScreenshot : testStepsWithScreenshots) {
+            result.addAll(testStepsWithScreenshot.getScreenshots());
+        }
+        return result;
+//LITE:        return flatten(extract(testStepsWithScreenshots, on(TestStep.class).getScreenshots()));
     }
 
     public List<Screenshot> getScreenshots() {
@@ -1588,7 +1594,8 @@ public class TestOutcome {
     public String getFormattedIssues() {
         Set<String> issues = Sets.newHashSet(getIssues());
         if (!issues.isEmpty()) {
-            List<String> orderedIssues = sort(issues, on(String.class));
+            List<String> orderedIssues = new ArrayList<String>(issues); //LITE:sort(issues, on(String.class));
+            Collections.sort(orderedIssues);
             return "(" + getFormatter().addLinks(join(orderedIssues, ", ")) + ")";
         } else {
             return "";
@@ -1908,7 +1915,6 @@ public class TestOutcome {
     public boolean isManual() {
         return manual;
     }
-
     public Set<? extends Flag> getFlags() {
         if (flags == null) {
             flags = flagProvider.getFlagsFor(this);
@@ -2006,7 +2012,14 @@ public class TestOutcome {
 
     public Integer getPendingCount() {
         List<TestStep> allTestSteps = getLeafTestSteps();
-        return select(allTestSteps, having(on(TestStep.class).isPending())).size();
+        int count=0;
+        for (TestStep testStep : getLeafTestSteps()) {
+            if(testStep.isPending()){
+                count++;
+            }
+        }
+        return count;
+//LITE:        return select(allTestSteps, having(on(TestStep.class).isPending())).size();
     }
 
     public Boolean isSuccess() {
@@ -2047,7 +2060,12 @@ public class TestOutcome {
 
     public Long getDuration() {
         if ((duration == 0) && (testSteps.size() > 0)) {
-            return sum(testSteps, on(TestStep.class).getDuration());
+            long sumDuration=0;
+            for (TestStep testStep : testSteps) {
+                sumDuration+=testStep.getDuration();
+            }
+            return sumDuration;
+//           LITE:  return sum(testSteps, on(TestStep.class).getDuration());
         } else {
             return duration;
         }
@@ -2222,10 +2240,13 @@ public class TestOutcome {
         }
 
         StringBuilder sampleScenario = new StringBuilder();
+        int i =0;
         for (TestStep step : getStepChildren()) {
             sampleScenario.append(
                     withPlaceholderSubstitutes(step.getDescription()))
                     .append("\n");
+//            sampleScenario.append(CucumberScenarioOutlineStepDescriber.describeStep(i, this)).append("\n");
+            i ++;
         }
         return sampleScenario.length() > 1 ? sampleScenario.substring(0, sampleScenario.length() - 1) : "";
     }
@@ -2238,7 +2259,13 @@ public class TestOutcome {
 
 
     private boolean atLeastOneStepHasChildren() {
-        return !filter(having(on(TestStep.class).hasChildren(), is(true)), getTestSteps()).isEmpty();
+        for (TestStep testStep : getTestSteps()) {
+            if(testStep.hasChildren()){
+                return true;
+            }
+        }
+        return false;
+        //LITE:return !filter(having(on(TestStep.class).hasChildren(), is(true)), getTestSteps()).isEmpty();
     }
 
     public DataTable getDataTable() {

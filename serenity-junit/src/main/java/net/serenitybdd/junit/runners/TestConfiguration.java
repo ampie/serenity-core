@@ -1,7 +1,7 @@
 package net.serenitybdd.junit.runners;
 
 import net.thucydides.core.ThucydidesSystemProperty;
-import net.thucydides.core.annotations.TestCaseAnnotations;
+//LITE:import net.thucydides.core.annotations.TestCaseAnnotations;
 import net.thucydides.core.webdriver.Configuration;
 import org.junit.runners.model.TestClass;
 
@@ -10,12 +10,12 @@ public class TestConfiguration {
 
     private final Class<?> testClass;
     private final Configuration configuration;
-    private final TestClassAnnotations theTestIsAnnotated;
+    //LITE:private final TestClassAnnotations theTestIsAnnotated;
 
     public TestConfiguration(Class<?> testClass, Configuration configuration) {
         this.testClass = testClass;
         this.configuration = configuration;
-        this.theTestIsAnnotated = TestClassAnnotations.forTestClass(testClass);
+        //LITE: this.theTestIsAnnotated = TestClassAnnotations.forTestClass(testClass);
     }
 
     public boolean shouldClearMetadata() {
@@ -26,13 +26,13 @@ public class TestConfiguration {
         return new TestConfigurationBuilder(testClass);
     }
 
-    protected boolean isUniqueSession() {
-        return (theTestIsAnnotated.toUseAUniqueSession() || configuration.shouldUseAUniqueBrowser());
-    }
-
-    public boolean shouldClearTheBrowserSession() {
-        return (isAWebTest() && TestCaseAnnotations.shouldClearCookiesBeforeEachTestIn(testClass().getJavaClass()));
-    }
+//LITE:    protected boolean isUniqueSession() {
+//        return (theTestIsAnnotated.toUseAUniqueSession() || configuration.shouldUseAUniqueBrowser());
+//    }
+//
+//    public boolean shouldClearTheBrowserSession() {
+//        return (isAWebTest() && TestCaseAnnotations.shouldClearCookiesBeforeEachTestIn(testClass().getJavaClass()));
+//    }
 
     public static class TestConfigurationBuilder {
 
@@ -51,8 +51,8 @@ public class TestConfiguration {
         return new TestClass(testClass);
     }
 
-    public boolean isAWebTest() {
-        return TestCaseAnnotations.isWebTest(testClass().getJavaClass());
-    }
+//LITE:    public boolean isAWebTest() {
+//        return TestCaseAnnotations.isWebTest(testClass().getJavaClass());
+//    }
 
 }

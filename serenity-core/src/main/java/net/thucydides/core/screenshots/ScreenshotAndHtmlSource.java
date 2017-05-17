@@ -2,10 +2,8 @@ package net.thucydides.core.screenshots;
 
 import com.google.common.base.Objects;
 import com.google.common.base.Optional;
-import org.apache.commons.io.FileUtils;
 
 import java.io.File;
-import java.io.IOException;
 
 /**
  * A screenshot image and the corresponding HTML source code.

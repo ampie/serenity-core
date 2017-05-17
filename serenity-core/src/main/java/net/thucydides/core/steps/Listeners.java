@@ -1,10 +1,10 @@
 package net.thucydides.core.steps;
 
-import com.google.inject.Key;
+//LITE:import com.google.inject.Key;
 import net.thucydides.core.guice.Injectors;
-import net.thucydides.core.logging.ThucydidesLogging;
-import net.thucydides.core.pages.Pages;
-import net.thucydides.core.statistics.Statistics;
+//LITE:import net.thucydides.core.logging.ThucydidesLogging;
+//LITE:import net.thucydides.core.pages.Pages;
+//LITE:import net.thucydides.core.statistics.Statistics;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -19,36 +19,37 @@ public class Listeners {
     }
 
     public static class BaseStepListenerBuilder {
-        private Pages pages;
+       //LITE: private Pages pages;
 
         public BaseStepListenerBuilder and() {
             return this;
         }
         
-        public BaseStepListenerBuilder withPages(Pages pages) {
-            this.pages = pages;
-            return this;
-        }
+//LITE:        public BaseStepListenerBuilder withPages(Pages pages) {
+//            this.pages = pages;
+//            return this;
+//        }
 
         public BaseStepListener withOutputDirectory(File outputDirectory) {
-            if (pages != null) {
-                return new BaseStepListener(outputDirectory, pages);
-            } else {
+//LITE:            if (pages != null) {
+//LITE:                return new BaseStepListener(outputDirectory, pages);
+//LITE:            } else {
                 return new BaseStepListener(outputDirectory);
-            }
+//LITE:            }
         }
     }
 
     public static StepListener getLoggingListener() {
-        return Injectors.getInjector().getInstance(Key.get(StepListener.class, ThucydidesLogging.class));
+        return Injectors.getInjector().getInstance(ConsoleLoggingListener.class);
+//LITE:        return Injectors.getInjector().getInstance(Key.get(StepListener.class, ThucydidesLogging.class));
     }
 
     public static StepListener getStatisticsListener() {
-        try {
-            return Injectors.getInjector().getInstance(Key.get(StepListener.class, Statistics.class));
-        } catch (Throwable statisticsListenerException) {
-            LOGGER.error("Failed to create the statistics listener - possible database configuration issue", statisticsListenerException);
-        }
+//LITE:        try {
+//            return Injectors.getInjector().getInstance(Key.get(StepListener.class, Statistics.class));
+//        } catch (Throwable statisticsListenerException) {
+//            LOGGER.error("Failed to create the statistics listener - possible database configuration issue", statisticsListenerException);
+//        }
         return null;
     }
 }

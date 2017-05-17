@@ -3,9 +3,9 @@ package net.serenitybdd.junit.runners;
 import net.thucydides.core.batches.BatchManager;
 import net.thucydides.core.model.DataTable;
 import net.thucydides.core.model.DataTableRow;
-import net.thucydides.core.pages.Pages;
+//LITE:import net.thucydides.core.pages.Pages;
 import net.thucydides.core.webdriver.Configuration;
-import net.thucydides.core.webdriver.WebDriverFactory;
+//LITE:import net.thucydides.core.webdriver.WebDriverFactory;
 import net.thucydides.junit.listeners.JUnitStepListener;
 import org.junit.runner.notification.RunNotifier;
 import org.junit.runners.model.FrameworkMethod;
@@ -19,26 +19,27 @@ class TestClassRunnerForParameters extends QualifiedTestsRunner {
     private final DataTable parametersTable;
 
     TestClassRunnerForParameters(final Class<?> type,
-                                 final Configuration configuration,
-                                 final WebDriverFactory webDriverFactory,
-                                 final BatchManager batchManager,
+//LITE:                                 final Configuration configuration,
+//LITE:                                 final WebDriverFactory webDriverFactory,
+//LITE:                                 final BatchManager batchManager,
                                  final DataTable parametersTable,
                                  final int i) throws InitializationError {
-        super(type, configuration, webDriverFactory, batchManager);
+//LITE:        super(type, configuration, webDriverFactory, batchManager);
+        super(type,null,null);
         this.parametersTable = parametersTable;
         parameterSetNumber = i;
     }
 
-    @Override
-    protected JUnitStepListener initListenersUsing(final Pages pageFactory) {
-        setStepListener(JUnitStepListener.withOutputDirectory(getConfiguration().getOutputDirectory())
-                .and().withPageFactory(pageFactory)
-                .and().withParameterSetNumber(parameterSetNumber)
-                .and().withParametersTable(parametersTable)
-                .and().withTestClass(getTestClass().getJavaClass())
-                .and().build());
-        return getStepListener();
-    }
+//LITE:    @Override
+//    protected JUnitStepListener initListenersUsing(final Pages pageFactory) {
+//        setStepListener(JUnitStepListener.withOutputDirectory(getConfiguration().getOutputDirectory())
+//                .and().withPageFactory(pageFactory)
+//                .and().withParameterSetNumber(parameterSetNumber)
+//                .and().withParametersTable(parametersTable)
+//                .and().withTestClass(getTestClass().getJavaClass())
+//                .and().build());
+//        return getStepListener();
+//    }
 
     @Override
     protected JUnitStepListener initListeners() {

@@ -3,9 +3,9 @@ package net.thucydides.core.requirements;
 import com.google.common.base.Optional;
 import com.google.common.collect.Sets;
 import net.thucydides.core.ThucydidesSystemProperty;
+import net.thucydides.core.configuration.SystemPropertiesConfiguration;
 import net.thucydides.core.guice.Injectors;
 import net.thucydides.core.util.EnvironmentVariables;
-import net.thucydides.core.configuration.SystemPropertiesConfiguration;
 import org.apache.commons.lang3.StringUtils;
 
 import java.io.File;

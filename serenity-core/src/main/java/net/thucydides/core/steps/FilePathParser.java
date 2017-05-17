@@ -3,6 +3,7 @@ package net.thucydides.core.steps;
 import net.thucydides.core.ThucydidesSystemProperty;
 import net.thucydides.core.util.EnvironmentVariables;
 import org.apache.commons.lang3.StringUtils;
+
 import java.io.File;
 
 /**
@@ -29,7 +30,7 @@ public class FilePathParser {
         localizedPath = injectVariable(localizedPath, "user.dir", environmentVariables.getProperty("user.dir"));
         localizedPath = injectVariable(localizedPath, "APPDATA", environmentVariables.getValue("APPDATA"));
         localizedPath = injectVariable(localizedPath, "DATADIR",
-                                        ThucydidesSystemProperty.THUCYDIDES_DATA_DIR.from(environmentVariables));
+                ThucydidesSystemProperty.THUCYDIDES_DATA_DIR.from(environmentVariables));
 
         return localizedPath;
     }

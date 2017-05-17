@@ -1,12 +1,13 @@
 package net.thucydides.core.util;
 
 import ch.lambdaj.Lambda;
-import ch.lambdaj.function.convert.DefaultStringConverter;
+//LITE: import ch.lambdaj.function.convert.DefaultStringConverter;
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Maps;
 import net.serenitybdd.core.environment.ConfiguredEnvironment;
 import org.apache.commons.lang3.StringUtils;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
@@ -125,7 +126,8 @@ public class MockEnvironmentVariables implements EnvironmentVariables {
 
     @Override
     public List<String> getKeys() {
-        return Lambda.convert(properties.keySet(), new DefaultStringConverter());
+        return new ArrayList<String>(properties.stringPropertyNames());
+        //LITE: return Lambda.convert(properties.keySet(), new DefaultStringConverter());
     }
 
     @Override

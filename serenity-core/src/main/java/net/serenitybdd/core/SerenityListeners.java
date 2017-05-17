@@ -8,7 +8,7 @@ import net.thucydides.core.steps.Listeners;
 import net.thucydides.core.steps.StepEventBus;
 import net.thucydides.core.steps.StepListener;
 import net.thucydides.core.webdriver.Configuration;
-import org.openqa.selenium.WebDriver;
+//LITE:import org.openqa.selenium.WebDriver;
 
 import java.io.File;
 import java.util.List;
@@ -40,10 +40,10 @@ public class SerenityListeners {
         }
     }
 
-    public SerenityListeners withDriver(WebDriver driver) {
-        baseStepListener.setDriver(driver);
-        return this;
-    }
+//LITE:    public SerenityListeners withDriver(WebDriver driver) {
+//        baseStepListener.setDriver(driver);
+//        return this;
+//    }
 
     public BaseStepListener getBaseStepListener() {
         return baseStepListener;
