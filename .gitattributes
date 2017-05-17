@@ -42,3 +42,4 @@
 *.pages binary
 *driver binary
 *.woff binary
+*.woff2 binary
