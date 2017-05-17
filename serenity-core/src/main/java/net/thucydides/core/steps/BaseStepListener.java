@@ -99,6 +99,8 @@ public class BaseStepListener implements StepListener, StepPublisher {
     private SoundEngineer soundEngineer = new SoundEngineer();
 
     private final CloseBrowser closeBrowsers;
+    private Long currentStepDuration;
+    private Long currentTestDuration;
 
     public void setEventBus(StepEventBus eventBus) {
         this.eventBus = eventBus;
@@ -297,6 +299,13 @@ public class BaseStepListener implements StepListener, StepPublisher {
         return proxyFactory;
     }
 
+    public void recordStepDuration(Long duration){
+        this.currentStepDuration = duration;
+    }
+
+    public void recordTestDuration(Long duration){
+        this.currentTestDuration = duration;
+    }
     protected TestOutcome getCurrentTestOutcome() {
         return latestTestOutcome().get();
     }
@@ -479,7 +488,12 @@ public class BaseStepListener implements StepListener, StepPublisher {
 
     private void recordTestDuration() {
         if (!testOutcomes.isEmpty()) {
-            getCurrentTestOutcome().recordDuration();
+            if(currentTestDuration == null) {
+                getCurrentTestOutcome().recordDuration();
+            }else{
+                getCurrentTestOutcome().setDuration(currentTestDuration);
+                currentTestDuration = null;
+            }
         }
     }
 
@@ -699,7 +713,12 @@ public class BaseStepListener implements StepListener, StepPublisher {
         }
         if (currentStepExists()) {
             TestStep finishedStep = currentStepStack.pop();
-            finishedStep.recordDuration();
+            if(this.currentStepDuration == null) {
+                finishedStep.recordDuration();
+            }else{
+                finishedStep.setDuration(currentStepDuration);
+                currentStepDuration = null;
+            }
             if (result != null) {
                 finishedStep.setResult(result);
             }

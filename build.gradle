@@ -88,7 +88,7 @@ allprojects {
 }
 
 release {
-    grgit = Grgit.open()
+    grgit = Grgit.open(currentDir: projectDir)
     defaultVersionStrategy Strategies.SNAPSHOT
     versionStrategy Strategies.SNAPSHOT
 }
